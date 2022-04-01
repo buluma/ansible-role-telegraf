@@ -14,3 +14,7 @@ exclude_paths:
 
 skip_list:
   - no-changed-when
+  - fqcn-builtins
+  - experimental
+  - unnamed-task  # All tasks should be named.
+  - yaml
