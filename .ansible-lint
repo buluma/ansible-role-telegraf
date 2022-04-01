@@ -1,0 +1,20 @@
+---
+#
+# Ansible managed
+#
+exclude_paths:
+  - ./meta/exception.yml
+  - ./meta/preferences.yml
+  - ./molecule/default/prepare.yml
+  - ./molecule/default/converge.yml
+  - ./molecule/default/verify.yml
+  - ./molecule/default/collections.yml
+  - ./.tox
+  - ./.cache
+
+skip_list:
+  - no-changed-when
+  - fqcn-builtins
+  - experimental
+  - unnamed-task  # All tasks should be named.
+  - yaml

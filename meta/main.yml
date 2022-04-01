@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   author: Michael Buluma
+  namespace: buluma
   description: Installing and configuring Telegraf
   role_name: telegraf
   company: ShadowNet
@@ -14,15 +15,6 @@ galaxy_info:
       versions:
         - all
     - name: Debian
-      versions:
-        - all
-    - name: opensuse
-      versions:
-        - all
-    - name: Windows
-      versions:
-        - all
-    - name: MacOS
       versions:
         - all
 

@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Installing and configuring Telegraf
+  homepage: https://buluma.github.io/
+  topics: monitoring, ansible, molecule, tox, playbook, hacktoberfest

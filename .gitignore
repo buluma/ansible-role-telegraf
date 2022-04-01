@@ -1,9 +1,6 @@
-.idea
 .molecule
-tests/.cache
+*.log
+*.swp
+.tox
 .cache
-__pycache__
-*.retry
-pmip
-# IDE:s
-.idea
+.DS_Store

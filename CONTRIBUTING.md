@@ -1,93 +1,74 @@
-# Contributing to this role
+# [Please contribute](#please-contribute)
 
-**Table of content**
+You can really make a difference by:
 
-- [Contributing to this role](#contributing-to-this-role)
-  * [Contributing](#contributing)
-  * [(local) Development](#-local--development)
-    + [Requirements](#requirements)
-    + [Execution](#execution)
-- [Other](#other)
-  * [Virtualenv](#virtualenv)
-  * [Links](#links)
+- [Making an issue](https://help.github.com/articles/creating-an-issue/). A well described issue helps a lot. (Have a look at the [known issues](https://github.com/search?q=user%3Abuluma+is%3Aissue+state%3Aopen).)
+- [Making a pull request](https://services.github.com/on-demand/github-cli/open-pull-request-github) when you see the error in code.
 
-Thank you very much for making time to improve this Ansible role.
+I'll try to help and take every contribution seriously.
 
-## Contributing
+It's a great opportunity for me to learn how you use the role and also an opportunity to get into the habit of contributing to open source software.
 
-Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms. [Contributor Code of Conduct](https://docs.ansible.com/ansible/devel/community/code_of_conduct.html).
+## [Step by step](#step-by-step)
 
-1. Fork the repo
+Here is how you can help, a lot of steps are related to GitHub, not specifically my roles.
 
-2. Create a branch and apply your changes to this branch.
+### [1. Make an issue.](#1-make-an-issue)
 
-    a. Make sure you have updated the documentation when adding new variables;
+When you spot an issue, [create an issue](https://github.com/buluma/ansible-role-telegraf/issues).
 
-    b. Don't forget to add/update tests so we can test the functionality during each Pull Request;
+Making the issue help me and others to find similar problems in the future.
 
-    c. Make sure the tests will succeed.
+### [2. Fork the project.](#2-fork-the-project)
 
-3. Push the branch to your fork and submit a pull request.
+On the top right side of [the repository on GitHub](https://github.com/buluma/ansible-role-telegraf), click `fork`. This copies everything to your GitHub namespace.
 
-**Note**
+### [3. Make the changes](#3-make-the-changes)
 
-Pull Requests that fails during the tests will not be merged.
+In you own GitHub namespace, make the required changes.
 
-## Coding Guidelines
-
-Style guides are important because they ensure consistency in the content, look, and feel of a book or a website.
-
-* [Ansible Style Guide](http://docs.ansible.com/ansible/latest/dev_guide/style_guide/)
-* It's "Ansible" when referring to the product and ``ansible`` when referring to the command  line tool, package, etc
-* Playbooks should be written in multi-line YAML with ``key: value``. The form ``key=value`` is only for ``ansible`` ad-hoc, not for ``ansible-playbook``.
-* Tasks should always have a ``name:``
-
-## (local) Development
-
-This role make use of Molecule to test the execution of the role and verificate it. In the repository https://github.com/dj-wasabi/dj-wasabi-release, a file named `requirements.txt` exists and contains the versions used by the tests.
-
-### Requirements
-
-You can install them with the following command:
+I typically do that by cloning the repository (in your namespace) locally:
 
 ```
-wget https://raw.githubusercontent.com/dj-wasabi/dj-wasabi-release/main/requirements.txt
-pip install -r requirements.txt
+git clone git@github.com:YOURNAMESPACE/ansible-role-telegraf.git
 ```
 
-Once the dependencies are installed, please install Docker as Molecule is configured in this repository to create Docker containers. See [this](https://docs.docker.com/install/) link to install Docker on your system.
+Now you can start to edit on your laptop.
 
-### Execution
+### [4. Optionally: test your changes](#4-optionally-test-your-changes)
 
-Once everything is installed, you can validate your changes by executing:
+Install [molecule](https://molecule.readthedocs.io/en/stable/) and [Tox](https://tox.readthedocs.io/):
+
 ```
-molecule test
+pip install molecule tox ansible-lint docker
 ```
 
-It should run without any issues.
+And run `molecule test`. If you want to test a specific distribution, set `image` and optionally `tag`:
 
-# Other
+```
+image=centos tag=7 molecule test
+```
 
-## pre-commit
+Once it start to work, you can test multiple version of Ansible:
 
-This repository contains a pre-commit hook. This means that when you want to commit the changes, 1 or more tests are executed to validate the changes. Please take a look at how to install the `pre-commit` package from the official [site](https://pre-commit.com/). Also make sure to install `ansible-lint` via `pip install ansible-lint` as this is 1 of the tools that is executed while a pre-commit hooks runs.
+```
+image=centos tag=7 tox
+```
 
-## Virtualenv
+### [5. Optionally: Regenerate all dynamic content](#5-optionally-regenerate-all-dynamic-content)
 
-Suggestion is to create a virtualenv so you won't have issues with other projects.
+You can use [Ansible Generator](https://github.com/buluma/ansible-generator) to regenerate all dynamic content.
 
-Some web pages describing for virtual env:
+If you don't do it, I'll do it later for you.
 
-* http://thepythonguru.com/python-virtualenv-guide/
-* https://realpython.com/python-virtual-environments-a-primer/
-* https://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/
+### [6. Make a pull request](#6-make-a-pull-request)
 
-## Links
+[GitHub](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) on pull requests.
 
-[Molecule](https://molecule.readthedocs.io/)
+In the comment-box, you can [refer to the issue number](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls) by using #123, where 123 is the issue number.
 
-[Ansible](https://www.ansible.com/)
+### [7. Wait](#7-wait)
 
-[Molecule V2 with your own role](https://werner-dijkerman.nl/2017/09/05/using-molecule-v2-to-test-ansible-roles/)
+Now I'll get a message that you've added some code. Thank you, really.
 
-**End note**: Have fun making changes. If a feature helps you, then others find it helpful too and I will happily have it merged.
+CI starts to test your changes. You can follow the progress on GitHub.
