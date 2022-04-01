@@ -1,4 +1,4 @@
 ---
-- hosts: telegraf
+- hosts: all
   roles:
     - role: ansible-role-telegraf
