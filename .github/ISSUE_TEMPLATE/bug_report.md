@@ -1,35 +1,30 @@
 ---
 name: Bug report
-about: Help to improve this Ansible role.
+about: Create a report to help me improve
 
 ---
 
-**Describe the bug**
-<!--- A clear and concise description of what the bug is. -->
+## Describe the bug
 
-**Installation method/version**
-<!--- Please provide the installation method and version of the role. -->
+A clear and concise description of what the bug is.
 
-* Github / latest
-* Ansible Galaxy / 1.1.0
+## Playbook
 
-**Ansible Version**
+Please paste the playbook you are using. (Consider `requirements.yml` and
+optionally the command you've invoked.)
 
+
+```yaml
+---
+YOUR PLAYBOOK HERE
 ```
-<!--- Paste output from "ansible --version" -->
-```
 
-**Targetted hosts**
-Concerns the following OS(es):
-<!--- Pick one below and delete the rest -->
+## Output
 
-* Ubuntu
-* Debian
-* CentOS
-* Mint
+Show at least the error, possible related output, maybe just all the output.
 
-**Expected behavior**
-<!--- A clear and concise description of what you expected to happen. -->
+## Environment
 
-**Additional context**
-<!--- Add any other context about the problem here. Configuration of the role/group_vars information etc. -->
+- Control node OS: [e.g. Debian 9] (`cat /etc/os-release`)
+- Control node Ansible version: [e.g. 2.9.1] (`ansible --version`)
+- Managed node OS: [e.g. CentOS 7] (`cat /etc/os-release`)

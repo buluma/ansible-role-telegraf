@@ -16,15 +16,15 @@ galaxy_info:
     - name: Debian
       versions:
         - all
-    - name: opensuse
-      versions:
-        - all
-    - name: Windows
-      versions:
-        - all
-    - name: MacOS
-      versions:
-        - all
+    # - name: OpenSuse
+    #   versions:
+    #     - all
+    # - name: Windows
+    #   versions:
+    #     - all
+    # - name: MacOS
+    #   versions:
+    #     - all
 
   galaxy_tags:
     - monitoring
