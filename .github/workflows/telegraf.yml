@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          curl -so requirements.txt 'https://raw.githubusercontent.com/dj-wasabi/dj-wasabi-release/main/requirements.txt'
+          curl -so requirements.txt 'https://raw.githubusercontent.com/buluma/ansible-role-telegraf/testing/requirements.txt'
           pip install -r requirements.txt
 
       - name: Run role tests
@@ -62,4 +62,4 @@ jobs:
           MY_MOLECULE_IMAGE=${{ matrix.molecule_distro.image }}
           MY_MOLECULE_GROUP=${{ matrix.molecule_distro.group }}
           MY_MOLECULE_DOCKER_COMMAND=${{ matrix.molecule_distro.command }}
-          molecule test
+          molecule -v test
