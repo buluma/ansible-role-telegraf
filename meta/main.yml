@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   author: Michael Buluma
+  namespace: buluma
   description: Installing and configuring Telegraf
   role_name: telegraf
   company: ShadowNet
