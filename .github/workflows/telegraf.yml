@@ -1,3 +1,4 @@
+---
 name: "ansible-telegraf"
 on:
   push:
