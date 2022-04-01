@@ -1,4 +1,8 @@
 ---
+- name: Install a list of packages
+  apt:
+    pkg:
+    - gpg
 
 - name: "Debian | Set name if state != latest"
   set_fact:
