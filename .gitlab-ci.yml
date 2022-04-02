@@ -55,6 +55,20 @@ testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
+      - image: "docker-centos8-ansible"
+        tag: "latest"
+      - image: "docker-centos7-ansible"
+        tag: "latest"
+      - image: "docker-ubuntu2004-ansible"
+        tag: "latest"
+      - image: "docker-ubuntu1804-ansible"
+        tag: "latest"
+      - image: "docker-ubuntu1604-ansible"
+        tag: "latest"
+      - image: "docker-debian9-ansible"
+        tag: "latest"
+      - image: "docker-debian8-ansible"
+        tag: "latest"
 
 galaxy:
   script:
