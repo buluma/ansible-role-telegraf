@@ -48,8 +48,6 @@ jobs:
             tag: "focal"
           - image: "debian-systemd"
             tag: "latest"
-          - image: "debian-systemd"
-            tag: "bookworm"
     steps:
       - name: checkout
         uses: actions/checkout@v3
