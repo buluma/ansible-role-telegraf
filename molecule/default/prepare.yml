@@ -1,6 +1,6 @@
 ---
 
-- hosts: telegraf
+- hosts: all
   roles:
     - name: buluma.bootstrap
     - name: buluma.ca_certificates
