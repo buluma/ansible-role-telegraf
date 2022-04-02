@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Move to collections [\#10](https://github.com/buluma/ansible-role-telegraf/pull/10) ([buluma](https://github.com/buluma))
 - Move to collections [\#9](https://github.com/buluma/ansible-role-telegraf/pull/9) ([buluma](https://github.com/buluma))
 
 ## [v0.1.1](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.1) (2022-04-02)
