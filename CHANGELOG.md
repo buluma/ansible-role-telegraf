@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Update main.yml [\#4](https://github.com/buluma/ansible-role-telegraf/pull/4) ([buluma](https://github.com/buluma))
 - Bump actions/setup-python from 1 to 3.1.0 [\#2](https://github.com/buluma/ansible-role-telegraf/pull/2) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v0.1.0](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.0) (2022-04-01)
