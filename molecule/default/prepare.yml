@@ -1,6 +1,10 @@
 ---
 
 - hosts: telegraf
+  roles:
+    - name: buluma.bootstrap
+    - name: buluma.ca_certificates
+
   tasks:
     - name: "Installing packages on CentOS"
       yum:
