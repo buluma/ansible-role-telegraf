@@ -4,15 +4,17 @@ Installing and configuring Telegraf
 
 |GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
 |------|------|-------|---------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/buluma/ansible-role-telegraf)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/buluma/telegraf)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
+|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/buluma/ansible-role-telegraf)|[![quality](https://img.shields.io/ansible/quality/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![downloads](https://img.shields.io/ansible/role/d/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
 
 ## [Example Playbook](#example-playbook)
 
 This example is taken from `molecule/default/converge.yml` and is tested on each push, pull request and release.
 ```yaml
 ---
-- hosts: telegraf
+- hosts: all
   roles:
+    - role: buluma.bootstrap
+    - role: buluma.ca_certificates
     - role: buluma.telegraf
 ```
 
@@ -20,7 +22,11 @@ The machine needs to be prepared. In CI this is done using `molecule/default/pre
 ```yaml
 ---
 
-- hosts: telegraf
+- hosts: all
+  roles:
+    - name: buluma.bootstrap
+    - name: buluma.ca_certificates
+
   tasks:
     - name: "Installing packages on CentOS"
       yum:
@@ -61,9 +67,8 @@ The default values for the variables are set in `defaults/main.yml`:
 ```yaml
 ---
 telegraf_enabled: True
-# defaults file for ansible-telegraf
 
-telegraf_agent_version: 1.18.2
+telegraf_agent_version: 1.22.0
 telegraf_agent_version_patch: 1
 telegraf_agent_package: telegraf
 telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
@@ -162,6 +167,14 @@ telegraf_mac_group: admin
 
 - pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-telegraf/blob/main/requirements.txt).
 
+## [Status of used roles](#status-of-requirements)
+
+The following roles are used to prepare a system. You can prepare your system in another way.
+
+| Requirement | GitHub | GitLab |
+|-------------|--------|--------|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-bootstrap/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-bootstrap)|
+|[buluma.ca_certificates](https://galaxy.ansible.com/buluma/ca_certificates)|[![Build Status GitHub](https://github.com/buluma/ansible-role-ca_certificates/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-ca_certificates/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-ca_certificates/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-ca_certificates)|
 
 ## [Context](#context)
 

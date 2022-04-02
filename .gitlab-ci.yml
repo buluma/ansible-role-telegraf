@@ -10,7 +10,7 @@ variables:
 
 molecule:
   script:
-    - image=${image} tag=${tag} molecule test
+    - image=${image} tag=${tag} molecule -v test
   retry: 1
   parallel:
     matrix:
@@ -26,12 +26,10 @@ molecule:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "debian-systemd"
-        tag: "bookworm"
 
 testing:
   script:
-    - image=${image} tag=${tag} molecule test
+    - image=${image} tag=${tag} molecule -v test
   rules:
     - if: $CI_COMMIT_REF_NAME == "testing"
   retry: 1
@@ -49,8 +47,6 @@ testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "debian-systemd"
-        tag: "bookworm"
 
 galaxy:
   script:
@@ -74,5 +70,3 @@ role_testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "debian-systemd"
-        tag: "bookworm"
