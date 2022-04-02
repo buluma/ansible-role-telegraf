@@ -38,8 +38,8 @@ jobs:
           # Let commit the changes if there are any? (Well there should be!)
           if [[ $(git status | grep -c 'CHANGELOG.md' || true) -gt 0 ]]
             then  echo "Committing file"
-                  git config --global user.name 'Shadow Walker [GH bot]'
-                  git config --global user.email 'github@buluma.me.ke'
+                  git config --global user.name 'Werner Dijkerman [GH bot]'
+                  git config --global user.email 'github@dj-wasabi.nl'
 
                   git add CHANGELOG.md
                   git commit -m "Updated CHANGELOG.md on \"$(date "+%Y-%m-%d %H:%M:%S")\"" CHANGELOG.md
