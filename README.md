@@ -36,7 +36,7 @@ The machine needs to be prepared. In CI this is done using `molecule/default/pre
         - ansible_os_family == 'RedHat'
 
     - name: "Apt get update"
-      shell: apt-get update && apt-get install -y python-apt
+      shell: apt-get update && apt-get install -y python3-apt
       when:
         - ansible_os_family == 'Debian'
 
@@ -44,7 +44,7 @@ The machine needs to be prepared. In CI this is done using `molecule/default/pre
       apt:
         name:
           - wget
-          - python-apt
+          - python3-apt
           - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
         update_cache: True
         state: present
