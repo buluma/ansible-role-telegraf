@@ -1,13 +1,13 @@
 ---
 
 - name: Adding Telegraf group
-  group:
+  ansible.builtin.group:
     name: telegraf
     state: present
     gid: "{{ telegraf_gid_docker }}"
 
 - name: Adding Telegraf user
-  user:
+  ansible.builtin.user:
     name: telegraf
     group: telegraf
     state: present
@@ -18,7 +18,7 @@
   become: yes
 
 - name: Create /etc/telegraf (home) directory
-  file:
+  ansible.builtin.file:
     path: /etc/telegraf
     owner: telegraf
     group: telegraf
@@ -27,7 +27,7 @@
   become: yes
 
 - name: Create /etc/telegraf.d directory
-  file:
+  ansible.builtin.file:
     path: /etc/telegraf/telegraf.d
     owner: telegraf
     group: telegraf

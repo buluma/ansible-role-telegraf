@@ -2,11 +2,11 @@
 # description: FreeBSD specific installation
 
 - name: "FreeBSD | set package name"
-  set_fact:
+  ansible.builtin.set_fact:
     telegraf_agent_package: telegraf
 
 - name: "FreeBSD | Install Telegraf package"
-  pkgng:
+  community.general.pkgng:
     name: "{{ telegraf_agent_package }}"
     state: "{{ telegraf_agent_package_state }}"
   register: is_telegraf_package_installed
