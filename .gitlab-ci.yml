@@ -26,6 +26,8 @@ molecule:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
+      - image: "debian"
+        tag: "stretch"
 
 testing:
   script:
