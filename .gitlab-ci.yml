@@ -63,8 +63,6 @@ testing:
         tag: "latest"
       - image: "docker-ubuntu1804-ansible"
         tag: "latest"
-      - image: "docker-ubuntu1604-ansible"
-        tag: "latest"
       - image: "docker-debian9-ansible"
         tag: "latest"
       - image: "docker-debian8-ansible"
