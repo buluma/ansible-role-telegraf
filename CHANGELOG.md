@@ -2,11 +2,22 @@
 
 ## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
 
-[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.0...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.1...HEAD)
 
 **Merged pull requests:**
 
+- Move to collections [\#9](https://github.com/buluma/ansible-role-telegraf/pull/9) ([buluma](https://github.com/buluma))
+
+## [v0.1.1](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.1) (2022-04-02)
+
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.0...v0.1.1)
+
+**Merged pull requests:**
+
+- Testing [\#7](https://github.com/buluma/ansible-role-telegraf/pull/7) ([buluma](https://github.com/buluma))
+- Testing [\#5](https://github.com/buluma/ansible-role-telegraf/pull/5) ([buluma](https://github.com/buluma))
 - Update main.yml [\#4](https://github.com/buluma/ansible-role-telegraf/pull/4) ([buluma](https://github.com/buluma))
+- Rebuild [\#3](https://github.com/buluma/ansible-role-telegraf/pull/3) ([buluma](https://github.com/buluma))
 - Bump actions/setup-python from 1 to 3.1.0 [\#2](https://github.com/buluma/ansible-role-telegraf/pull/2) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v0.1.0](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.0) (2022-04-01)
