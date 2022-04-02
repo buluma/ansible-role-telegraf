@@ -20,5 +20,7 @@ galaxy_info:
 
   galaxy_tags:
     - monitoring
+    - telegraf
+    - telegraf_agent
 
 dependencies: []
