@@ -41,38 +41,6 @@
     - not apt_https_transport.stat.exists
   become: yes
 
-- name: "Debian | Download Telegraf apt key"
-  ansible.builtin.apt_key:
-    url: "https://repos.influxdata.com/influxdb.key"
-    id: 2582E0C5
-    state: present
-  register: are_telegraf_dependencies_keys_installed
-  until: are_telegraf_dependencies_keys_installed is succeeded
-  become: yes
-  when:
-    - telegraf_agent_package_method == "repo"
-
-- name: "Debian | Add Telegraf repository (using LSB)"
-  ansible.builtin.apt_repository:
-    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_lsb.codename }} stable"
-    filename: "telegraf"
-    state: present
-  become: yes
-  when:
-    - telegraf_agent_package_method == "repo"
-    - ansible_lsb is defined
-    - ansible_lsb.codename is defined
-
-- name: "Debian | Add Telegraf repository"
-  ansible.builtin.apt_repository:
-    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
-    filename: "telegraf"
-    state: present
-  become: yes
-  when:
-    - telegraf_agent_package_method == "repo"
-    - ansible_lsb is not defined or ansible_lsb.codename is not defined
-
 - name: "Debian | Download Telegraf package (online)"
   ansible.builtin.get_url:
     url: https://dl.influxdata.com/telegraf/releases/{{ telegraf_agent_package_file_deb }}
@@ -81,20 +49,6 @@
   environment:
     http_proxy: "{{ http_proxy | default(None) | default(omit) }}"
     https_proxy: "{{ https_proxy | default(None) | default(omit) }}"
-  when:
-    - telegraf_agent_package_method == "online"
-
-- name: "Debian | Install Telegraf package (repo)"
-  ansible.builtin.apt:
-    name: "{{ telegraf_agent_package }}"
-    state: "{{ telegraf_agent_package_state }}"
-    update_cache: yes
-  register: is_telegraf_package_installed
-  until: is_telegraf_package_installed is succeeded
-  notify: "Restart Telegraf"
-  become: yes
-  when:
-    - telegraf_agent_package_method == "repo"
 
 - name: "Debian | Install Telegraf package (online)"
   ansible.builtin.apt:
