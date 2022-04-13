@@ -4,3 +4,4 @@
     - role: buluma.bootstrap
     - role: buluma.ca_certificates
     - role: ansible-role-telegraf
+      telegraf_agent_package_method: online
