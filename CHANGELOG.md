@@ -4,6 +4,14 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.2...HEAD)
 
+**Implemented enhancements:**
+
+- try online build [\#14](https://github.com/buluma/ansible-role-telegraf/pull/14) ([buluma](https://github.com/buluma))
+
+**Closed issues:**
+
+- Add to tracker [\#8](https://github.com/buluma/ansible-role-telegraf/issues/8)
+
 **Merged pull requests:**
 
 - Bump actions/setup-python from 3.1.1 to 3.1.2 [\#13](https://github.com/buluma/ansible-role-telegraf/pull/13) ([dependabot[bot]](https://github.com/apps/dependabot))
