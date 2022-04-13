@@ -21,8 +21,6 @@ molecule:
       - image: "docker-centos7-ansible"
         tag: "latest"
       - image: "centos-systemd"
-        tag: "latest"
-      - image: "centos-systemd"
         tag: "7"
       - image: "rockylinux"
         tag: "8"
