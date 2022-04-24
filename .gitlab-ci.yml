@@ -10,20 +10,12 @@ variables:
 
 molecule:
   script:
-    - image=${image} tag=${tag} molecule -v test
+    - image=${image} tag=${tag} molecule test
   retry: 1
   parallel:
     matrix:
       - image: "enterpriselinux"
         tag: "7"
-      - image: "docker-centos8-ansible"
-        tag: "latest"
-      - image: "docker-centos7-ansible"
-        tag: "latest"
-      - image: "centos-systemd"
-        tag: "7"
-      - image: "rockylinux"
-        tag: "8"
       - image: "enterpriselinux"
         tag: "latest"
       - image: "docker-ubuntu-systemd"
@@ -32,18 +24,14 @@ molecule:
         tag: "bionic"
       - image: "docker-ubuntu-systemd"
         tag: "focal"
-      - image: "debian"
-        tag: "stretch"
-      - image: "ubuntu"
-        tag: "18.04"
-      - image: "ubuntu"
-        tag: "20.04"
-      - image: "ubuntu"
-        tag: "21.04"
+      - image: "debian-systemd"
+        tag: "latest"
+      - image: "debian-systemd"
+        tag: "bookworm"
 
 testing:
   script:
-    - image=${image} tag=${tag} molecule -v test
+    - image=${image} tag=${tag} molecule test
   rules:
     - if: $CI_COMMIT_REF_NAME == "testing"
   retry: 1
@@ -61,18 +49,8 @@ testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "docker-centos8-ansible"
-        tag: "latest"
-      - image: "docker-centos7-ansible"
-        tag: "latest"
-      - image: "docker-ubuntu2004-ansible"
-        tag: "latest"
-      - image: "docker-ubuntu1804-ansible"
-        tag: "latest"
-      - image: "docker-debian9-ansible"
-        tag: "latest"
-      - image: "docker-debian8-ansible"
-        tag: "latest"
+      - image: "debian-systemd"
+        tag: "bookworm"
 
 galaxy:
   script:
@@ -96,3 +74,5 @@ role_testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
+      - image: "debian-systemd"
+        tag: "bookworm"
