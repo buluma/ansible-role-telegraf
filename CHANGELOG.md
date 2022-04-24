@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
+## [v0.1.3](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.3) (2022-04-13)
 
-[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.2...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.2...v0.1.3)
 
 **Implemented enhancements:**
 
