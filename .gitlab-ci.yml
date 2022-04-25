@@ -57,8 +57,6 @@ testing:
         tag: "focal"
       - image: "debian-systemd"
         tag: "latest"
-      - image: "debian-systemd"
-        tag: "bookworm"
 
 galaxy:
   stage: deploy
