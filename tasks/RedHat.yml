@@ -24,6 +24,7 @@
   # when:
   #   - telegraf_agent_package_method == "repo"
 
+# TODO: Revisit online build
 # - name: "RedHat | Download Telegraf package (online)"
 #   ansible.builtin.get_url:
 #     url: https://dl.influxdata.com/telegraf/releases/{{ telegraf_agent_package_file_rpm }}
