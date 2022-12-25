@@ -11,3 +11,8 @@ exclude_paths:
   - ./molecule/default/collections.yml
   - ./.tox
   - ./.cache
+
+warn_list:  # or 'skip_list' to silence them completely
+  - experimental  # all rules tagged as experimental
+  - fqcn[action-core]  # Use FQCN for builtin actions.
+  - name[missing]  # Rule for checking task and play names.
