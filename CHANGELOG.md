@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.4...HEAD)
+
+**Merged pull requests:**
+
+- Bump actions/setup-python from 3.1.2 to 4.4.0 [\#29](https://github.com/buluma/ansible-role-telegraf/pull/29) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.1.4](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.4) (2022-05-02)
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.3...v0.1.4)
