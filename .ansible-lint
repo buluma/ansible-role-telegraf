@@ -2,20 +2,14 @@
 #
 # Ansible managed
 #
-exclude_paths:
-  - ./meta/exception.yml
-  - ./meta/preferences.yml
-  - ./molecule/default/prepare.yml
-  - ./molecule/default/converge.yml
-  - ./molecule/default/verify.yml
   - ./molecule/default/collections.yml
   - ./.tox
   - ./.cache
+  - ./.github
+  - ./requirements.yml
 
-warn_list:  # or 'skip_list' to silence them completely
-  - experimental  # all rules tagged as experimental
-  - fqcn[action-core]  # Use FQCN for builtin actions.
-  - name[missing]  # Rule for checking task and play names.
-  - fqcn[action]  # Use FQCN for builtin actions.
-  - jinja[spacing]  # Rule that looks inside jinja2 templates.
-  - name[casing]  # Rule for checking task and play names.
+skip_list:
+  - yaml[truthy]
+
+enable_list:
+  - name[prefix]

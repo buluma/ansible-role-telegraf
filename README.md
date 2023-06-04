@@ -4,11 +4,12 @@ Installing and configuring Telegraf
 
 |GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
 |------|------|-------|---------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/buluma/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/buluma/ansible-role-telegraf)|[![quality](https://img.shields.io/ansible/quality/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![downloads](https://img.shields.io/ansible/role/d/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
+|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-telegraf)|[![quality](https://img.shields.io/ansible/quality/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![downloads](https://img.shields.io/ansible/role/d/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
 
 ## [Example Playbook](#example-playbook)
 
-This example is taken from `molecule/default/converge.yml` and is tested on each push, pull request and release.
+This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
+
 ```yaml
 ---
 - hosts: all
@@ -18,41 +19,50 @@ This example is taken from `molecule/default/converge.yml` and is tested on each
     - role: buluma.telegraf
 ```
 
-The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
+The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
+
 ```yaml
 ---
 
-- hosts: all
-  roles:
-    - name: buluma.bootstrap
-    - name: buluma.ca_certificates
-
+- hosts: telegraf
   tasks:
     - name: "Installing packages on CentOS"
-      ansible.builtin.yum:
+      yum:
         name: which
         state: present
       when:
         - ansible_os_family == 'RedHat'
 
     - name: "Apt get update"
-      shell: apt-get update && apt-get install -y python3-apt
+      shell: apt-get update
       when:
         - ansible_os_family == 'Debian'
 
     - name: "Installing packages on Debian"
-      ansible.builtin.apt:
+      apt:
         name:
           - wget
-          - python3-apt
           - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
         update_cache: True
         state: present
       when:
         - ansible_os_family == 'Debian'
+        - ansible_distribution_major_version not in [9, 10]
+
+    - name: "Installing packages on Debian"
+      apt:
+        name:
+          - wget
+          - python-apt
+          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
+        update_cache: True
+        state: present
+      when:
+        - ansible_os_family == 'Debian'
+        - ansible_distribution_major_version in [9, 10]
 
     - name: "Installing packages on Suse"
-      community.general.zypper:
+      zypper:
         name:
           - aaa_base
         state: present
@@ -60,13 +70,16 @@ The machine needs to be prepared. In CI this is done using `molecule/default/pre
         - ansible_os_family == 'Suse'
 ```
 
+Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
 
 ## [Role Variables](#role-variables)
 
-The default values for the variables are set in `defaults/main.yml`:
+The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/defaults/main.yml):
+
 ```yaml
 ---
 telegraf_enabled: True
+# defaults file for ansible-telegraf
 
 telegraf_agent_version: 1.22.1
 telegraf_agent_version_patch: 1
@@ -143,7 +156,7 @@ telegraf_yum_baseurl:
   default: "https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ telegraf_redhat_releasever }}/$basearch/stable"
   redhat: "https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable"
   rocky: "https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable"
-telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdb.key"
+telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive_compat.key"
 
 telegraf_zypper_repos:
   "opensuse tumbleweed": "http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/"
@@ -156,25 +169,24 @@ telegraf_win_logfile: 'C:\\Telegraf\\telegraf.log'
 telegraf_win_include: 'C:\Telegraf\telegraf_agent.d'
 telegraf_win_service_args:
   - -service install
-  - -config {{ telegraf_win_install_dir }}\telegraf.conf
-  - --config-directory {{ telegraf_win_include }}
-
+  - '-config "{{ telegraf_win_install_dir }}\telegraf.conf"'
+  - '--config-directory "{{ telegraf_win_include }}"'
 telegraf_mac_user: user
 telegraf_mac_group: admin
 ```
 
 ## [Requirements](#requirements)
 
-- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-telegraf/blob/main/requirements.txt).
+- pip packages listed in [requirements.txt](https://github.com/buluma/ansible-role-telegraf/blob/master/requirements.txt).
 
-## [Status of used roles](#status-of-requirements)
+## [State of used roles](#state-of-used-roles)
 
 The following roles are used to prepare a system. You can prepare your system in another way.
 
 | Requirement | GitHub | GitLab |
 |-------------|--------|--------|
-|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-bootstrap/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-bootstrap)|
-|[buluma.ca_certificates](https://galaxy.ansible.com/buluma/ca_certificates)|[![Build Status GitHub](https://github.com/buluma/ansible-role-ca_certificates/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-ca_certificates/actions)|[![Build Status GitLab ](https://gitlab.com/buluma/ansible-role-ca_certificates/badges/main/pipeline.svg)](https://gitlab.com/buluma/ansible-role-ca_certificates)|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab](https://gitlab.com/shadowwalker/ansible-role-bootstrap/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-bootstrap)|
+|[buluma.ca_certificates](https://galaxy.ansible.com/buluma/ca_certificates)|[![Build Status GitHub](https://github.com/buluma/ansible-role-ca_certificates/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-ca_certificates/actions)|[![Build Status GitLab](https://gitlab.com/shadowwalker/ansible-role-ca_certificates/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-ca_certificates)|
 
 ## [Context](#context)
 
@@ -190,17 +202,17 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
-|el|all|
-|ubuntu|all|
-|debian|all|
+|[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|all|
+|[Ubuntu](https://hub.docker.com/repository/docker/buluma/ubuntu/general)|all|
+|[Kali](https://hub.docker.com/repository/docker/buluma/kali/general)|all|
+|[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|all|
+|[opensuse](https://hub.docker.com/repository/docker/buluma/opensuse/general)|all|
 
-The minimum version of Ansible required is 2.4, tests have been done to:
+The minimum version of Ansible required is 2.12, tests have been done to:
 
 - The previous version.
 - The current version.
 - The development version.
-
-
 
 If you find issues, please register them in [GitHub](https://github.com/buluma/ansible-role-telegraf/issues)
 
@@ -210,8 +222,14 @@ If you find issues, please register them in [GitHub](https://github.com/buluma/a
 
 ## [License](#license)
 
-Apache-2.0
+[Apache-2.0](https://github.com/buluma/ansible-role-telegraf/blob/master/LICENSE).
 
 ## [Author Information](#author-information)
 
-[Michael Buluma](https://buluma.github.io/)
+[buluma](https://buluma.github.io/)
+
+Please consider [sponsoring me](https://github.com/sponsors/buluma).
+
+### [Special Thanks](#special-thanks)
+
+Template inspired by [Robert de Bock](https://github.com/robertdebock)
