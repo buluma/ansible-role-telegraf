@@ -1,12 +1,11 @@
 ---
 galaxy_info:
-  author: Michael Buluma
-  namespace: buluma
+  author: buluma
   description: Installing and configuring Telegraf
   role_name: telegraf
   company: ShadowNet
   license: Apache-2.0
-  min_ansible_version: 2.4
+  min_ansible_version: "2.12"
   platforms:
     - name: EL
       versions:
@@ -14,12 +13,20 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - all
+    - name: Kali
+      versions:
+        - all
     - name: Debian
+      versions:
+        - all
+    - name: opensuse
+      versions:
+        - all
+    - name: MacOS
       versions:
         - all
 
   galaxy_tags:
     - monitoring
-    - telegraf
 
 dependencies: []

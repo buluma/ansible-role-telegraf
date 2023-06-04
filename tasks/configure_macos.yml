@@ -7,7 +7,7 @@
     - telegraf_agent_aws_tags
 
 - name: "Add prefix path"
-  ansible.builtin.set_fact:
+  set_fact:
     telegraf_agent_config_path: /usr/local/etc
   when:
     - ansible_os_family in ["FreeBSD", "Darwin"]
@@ -22,7 +22,7 @@
   register: ec2_tags
 
 - name: "Copy the template for versions < 0.10.0"
-  ansible.builtin.template:
+  template:
     src: etc-opt-telegraf-telegraf.conf.j2
     dest: /etc/opt/telegraf/telegraf.conf
     owner: "{{ telegraf_mac_user }}"
@@ -36,7 +36,7 @@
     - Restart Telegraf container
 
 - name: "Copy the template for versions >= 0.10.0"
-  ansible.builtin.template:
+  template:
     src: telegraf.conf.j2
     dest: "{{ telegraf_agent_config_path }}/telegraf.conf"
     owner: "{{ telegraf_mac_user }}"
@@ -50,14 +50,14 @@
     - Restart Telegraf container
 
 - name: "Check if extra plugins directory exists in case of exclusive"
-  ansible.builtin.stat:
+  stat:
     path: "{{ telegraf_agent_config_path }}/telegraf.d"
   register: telegraf_directory
   when:
     - telegraf_plugins_extra_exclusive
 
 - name: "Delete telegraf extra plugin path"
-  ansible.builtin.file:
+  file:
     state: absent
     path: "{{ telegraf_agent_config_path }}/telegraf.d/"
   when:
@@ -69,7 +69,7 @@
     - Restart Telegraf container
 
 - name: "Create telegraf extra plugin path"
-  ansible.builtin.file:
+  file:
     state: directory
     path: "{{ telegraf_agent_config_path }}/telegraf.d/"
     owner: "{{ telegraf_mac_user }}"
@@ -84,7 +84,7 @@
     - Restart Telegraf container
 
 - name: "Copy telegraf extra plugins"
-  ansible.builtin.template:
+  template:
     src: "telegraf-extra-plugin.conf.j2"
     dest: "{{ telegraf_agent_config_path }}/telegraf.d/{{ item.key }}.conf"
     owner: "{{ telegraf_mac_user }}"
@@ -103,7 +103,7 @@
     - Restart Telegraf container
 
 - name: "Remove telegraf extra plugins"
-  ansible.builtin.file:
+  file:
     path: "{{ telegraf_agent_config_path }}/telegraf.d/{{ item.key }}.conf"
     state: absent
   with_dict: "{{ telegraf_plugins_extra }}"
@@ -119,10 +119,11 @@
     - Restart Telegraf container
 
 - name: "Force restart service after reread config"
-  ansible.builtin.meta: flush_handlers
+  meta: flush_handlers
 
 - name: "Start Telegraf (If it wasn't running)"
-  ansible.builtin.command: brew services start telegraf
+  command: brew services start telegraf
   register: brew_services_start_telegraf
   changed_when: '"Successfully started `telegraf`" in brew_services_start_telegraf.stdout'
   when: not telegraf_agent_docker
+  ignore_errors: "{{ ansible_check_mode }}"
