@@ -2,9 +2,9 @@
 
 Installing and configuring Telegraf
 
-|GitHub|GitLab|Quality|Downloads|Version|Issues|Pull Requests|
-|------|------|-------|---------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-telegraf)|[![quality](https://img.shields.io/ansible/quality/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![downloads](https://img.shields.io/ansible/role/d/58622)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
+|GitHub|GitLab|Downloads|Version|Issues|Pull Requests|
+|------|------|-------|-------|------|-------------|
+|[![github](https://github.com/buluma/ansible-role-telegraf/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions)|[![gitlab](https://gitlab.com/shadowwalker/ansible-role-telegraf/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-telegraf)|[![downloads](https://img.shields.io/ansible/role/d/4853)](https://galaxy.ansible.com/buluma/telegraf)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
 
 ## [Example Playbook](#example-playbook)
 
