@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v0.1.4...HEAD)
 
+**Closed issues:**
+
+- Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#34](https://github.com/buluma/ansible-role-telegraf/issues/34)
+- Update action [\#33](https://github.com/buluma/ansible-role-telegraf/issues/33)
+
 **Merged pull requests:**
 
 - Bump actions/setup-python from 3.1.2 to 4.4.0 [\#29](https://github.com/buluma/ansible-role-telegraf/pull/29) ([dependabot[bot]](https://github.com/apps/dependabot))
