@@ -1,4 +1,4 @@
-# [telegraf](#telegraf)
+# [Ansible role telegraf](#telegraf)
 
 Installing and configuring Telegraf
 
