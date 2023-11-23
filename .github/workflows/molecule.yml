@@ -35,6 +35,8 @@ jobs:
         uses: actions/checkout@v3
       - name: ansible-lint
         uses: ansible-actions/ansible-lint-action@v1.0.2
+        with:
+          target: "./"
   test:
     needs:
       - lint
