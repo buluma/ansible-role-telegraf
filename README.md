@@ -1,10 +1,10 @@
-# [Ansible role telegraf](#telegraf)
+# Ansible role [telegraf](https://galaxy.ansible.com/ui/standalone/roles/buluma/telegraf/documentation)
 
 Installing and configuring Telegraf
 
-|GitHub|Version|Issues|Pull Requests|
-|------|-------|------|-------------|
-|[![github](https://github.com/buluma/ansible-role-telegraf/actions/workflows/molecule.yml/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions/workflows/molecule.yml)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|
+|GitHub|Version|Issues|Pull Requests|Downloads|
+|------|-------|------|-------------|---------|
+|[![github](https://github.com/buluma/ansible-role-telegraf/actions/workflows/molecule.yml/badge.svg)](https://github.com/buluma/ansible-role-telegraf/actions/workflows/molecule.yml)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/releases/)|[![Issues](https://img.shields.io/github/issues/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/issues/)|[![PullRequests](https://img.shields.io/github/issues-pr-closed-raw/buluma/ansible-role-telegraf.svg)](https://github.com/buluma/ansible-role-telegraf/pulls/)|[![Ansible Role](https://img.shields.io/ansible/role/d/buluma/telegraf)](https://galaxy.ansible.com/ui/standalone/roles/buluma/telegraf/documentation)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -226,9 +226,7 @@ If you find issues, please register them in [GitHub](https://github.com/buluma/a
 
 ## [Author Information](#author-information)
 
-[buluma](https://buluma.github.io/)
+[Shadow Walker](https://buluma.github.io/)
 
-
-### [Special Thanks](#special-thanks)
 
 Template inspired by [Robert de Bock](https://github.com/robertdebock)
