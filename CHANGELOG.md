@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#38](https://github.com/buluma/ansible-role-telegraf/issues/38)
 - Update buluma/todo-to-issue-action@v1.0.1 @buluma [\#34](https://github.com/buluma/ansible-role-telegraf/issues/34)
 - Update action [\#33](https://github.com/buluma/ansible-role-telegraf/issues/33)
 
