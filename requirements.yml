@@ -5,3 +5,5 @@ roles:
   # - name: buluma.pip
 collections:
   - name: community.general
+  - name: ansible.windows
+  - name: community.docker

@@ -1,7 +1,7 @@
 ---
 
 - name: "Windows | Create directory structure"
-  win_file:
+  ansible.windows.win_file:
     path: "{{ item }}"
     state: directory
   with_items:
@@ -9,12 +9,12 @@
     - "{{ telegraf_win_include }}"
 
 - name: "Windows | Check if file is already downloaded"
-  win_stat:
+  ansible.windows.win_stat:
     path: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}_windows_amd64.zip'
   register: file_info
 
 - name: "Windows | Download Telegraf Agent Zip file"
-  win_get_url:
+  ansible.windows.win_get_url:
     url: https://dl.influxdata.com/telegraf/releases/telegraf-{{ telegraf_agent_version }}_windows_amd64.zip
     dest: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}_windows_amd64.zip'
   when:
@@ -28,7 +28,7 @@
   when: telegraf_agent_version is version('1.15', '>=')
 
 - name: "Windows | Move extracted directory (newer than 1.15)"
-  win_copy:
+  ansible.windows.win_copy:
     src: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}\telegraf.exe'
     dest: '{{ telegraf_win_install_dir }}\telegraf.exe'
     remote_src: yes
@@ -43,7 +43,7 @@
   when: telegraf_agent_version is version('1.15', '<')
 
 - name: "Windows | Move extracted executable"
-  win_copy:
+  ansible.windows.win_copy:
     src: '{{ telegraf_win_install_dir }}\telegraf\telegraf.exe'
     dest: '{{ telegraf_win_install_dir }}\telegraf.exe'
     remote_src: yes
@@ -69,7 +69,7 @@
   notify: "Restart Windows Telegraf"
 
 - name: "Windows | Remove telegraf extra plugins"
-  win_file:
+  ansible.windows.win_file:
     path: '{{ telegraf_win_include }}\{{ item.key }}.conf'
     state: absent
   with_dict: "{{ telegraf_plugins_extra }}"
@@ -114,7 +114,7 @@
     state: started
 
 - name: "Windows | Cleanup"
-  win_file:
+  ansible.windows.win_file:
     path: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}'
     state: absent
   when: telegraf_agent_version is version('1.15', '>=')

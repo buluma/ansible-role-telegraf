@@ -3,7 +3,7 @@
 - hosts: telegraf
   tasks:
     - name: "Installing packages on CentOS"
-      yum:
+      ansible.builtin.yum:
         name: which
         state: present
       when:
@@ -15,7 +15,7 @@
         - ansible_os_family == 'Debian'
 
     - name: "Installing packages on Debian"
-      apt:
+      ansible.builtin.apt:
         name:
           - wget
           - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
@@ -26,7 +26,7 @@
         - ansible_distribution_major_version not in [9, 10]
 
     - name: "Installing packages on Debian"
-      apt:
+      ansible.builtin.apt:
         name:
           - wget
           - python-apt
@@ -38,7 +38,7 @@
         - ansible_distribution_major_version in [9, 10]
 
     - name: "Installing packages on Suse"
-      zypper:
+      community.general.zypper:
         name:
           - aaa_base
         state: present
