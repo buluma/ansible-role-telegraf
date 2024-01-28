@@ -7,7 +7,7 @@
   when:
     - telegraf_agent_package_state != "latest"
 
-- name: Use RHEL 7 packages for Fedora
+- name: RedHat | Use RHEL 7 packages for Fedora
   ansible.builtin.set_fact:
     telegraf_redhat_releasever: 7
   when:

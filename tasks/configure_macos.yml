@@ -1,18 +1,18 @@
 ---
 # description: Configure telegraf and get all relevent ec2 information
 
-- name: Retrieve ec2 facts
+- name: configure_macos | Retrieve ec2 facts
   ec2_metadata_facts:
   when:
     - telegraf_agent_aws_tags
 
-- name: "Add prefix path"
+- name: configure_macos | "Add prefix path"
   ansible.builtin.set_fact:
     telegraf_agent_config_path: /usr/local/etc
   when:
     - ansible_os_family in ["FreeBSD", "Darwin"]
 
-- name: Retrieve all ec2 tags on the instance
+- name: configure_macos | Retrieve all ec2 tags on the instance
   ec2_tag:
     region: '{{ ansible_ec2_placement_region }}'
     resource: '{{ ansible_ec2_instance_id }}'
@@ -21,7 +21,7 @@
     - telegraf_agent_aws_tags
   register: ec2_tags
 
-- name: "Copy the template for versions < 0.10.0"
+- name: configure_macos | "Copy the template for versions < 0.10.0"
   ansible.builtin.template:
     src: etc-opt-telegraf-telegraf.conf.j2
     dest: /etc/opt/telegraf/telegraf.conf
@@ -35,7 +35,7 @@
     - Restart Telegraf
     - Restart Telegraf container
 
-- name: "Copy the template for versions >= 0.10.0"
+- name: configure_macos | "Copy the template for versions >= 0.10.0"
   ansible.builtin.template:
     src: telegraf.conf.j2
     dest: "{{ telegraf_agent_config_path }}/telegraf.conf"
@@ -49,14 +49,14 @@
     - Restart MacOS Telegraf
     - Restart Telegraf container
 
-- name: "Check if extra plugins directory exists in case of exclusive"
+- name: configure_macos | "Check if extra plugins directory exists in case of exclusive"
   ansible.builtin.stat:
     path: "{{ telegraf_agent_config_path }}/telegraf.d"
   register: telegraf_directory
   when:
     - telegraf_plugins_extra_exclusive
 
-- name: "Delete telegraf extra plugin path"
+- name: configure_macos | "Delete telegraf extra plugin path"
   ansible.builtin.file:
     state: absent
     path: "{{ telegraf_agent_config_path }}/telegraf.d/"
@@ -68,7 +68,7 @@
     - Restart MacOS Telegraf
     - Restart Telegraf container
 
-- name: "Create telegraf extra plugin path"
+- name: configure_macos | "Create telegraf extra plugin path"
   ansible.builtin.file:
     state: directory
     path: "{{ telegraf_agent_config_path }}/telegraf.d/"
@@ -83,7 +83,7 @@
     - Restart MacOS Telegraf
     - Restart Telegraf container
 
-- name: "Copy telegraf extra plugins"
+- name: configure_macos | "Copy telegraf extra plugins"
   ansible.builtin.template:
     src: "telegraf-extra-plugin.conf.j2"
     dest: "{{ telegraf_agent_config_path }}/telegraf.d/{{ item.key }}.conf"
@@ -102,7 +102,7 @@
     - Restart MacOS Telegraf
     - Restart Telegraf container
 
-- name: "Remove telegraf extra plugins"
+- name: configure_macos | "Remove telegraf extra plugins"
   ansible.builtin.file:
     path: "{{ telegraf_agent_config_path }}/telegraf.d/{{ item.key }}.conf"
     state: absent
@@ -118,10 +118,10 @@
     - Restart MacOS Telegraf
     - Restart Telegraf container
 
-- name: "Force restart service after reread config"
+- name: configure_macos | "Force restart service after reread config"
   ansible.builtin.meta: flush_handlers
 
-- name: "Start Telegraf (If it wasn't running)"
+- name: configure_macos | "Start Telegraf (If it wasn't running)"
   command: brew services start telegraf
   register: brew_services_start_telegraf
   changed_when: '"Successfully started `telegraf`" in brew_services_start_telegraf.stdout'

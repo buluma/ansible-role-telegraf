@@ -22,10 +22,6 @@ galaxy_info:
     - name: opensuse
       versions:
         - all
-    # TODO: Build MacOS container
-    # - name: MacOS
-    #   versions:
-    #     - all
 
   galaxy_tags:
     - monitoring

@@ -1,6 +1,9 @@
 ---
 
 - hosts: all
+  gather_facts: no
+  become: no
+
   tasks:
     - name: "Installing packages on CentOS"
       ansible.builtin.yum:
