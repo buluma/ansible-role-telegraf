@@ -1,7 +1,7 @@
 ---
 # description: MacOS specific installation
 
-- name: "MacOS | set package name"
+- name: "MacOS | Set package name"
   ansible.builtin.set_fact:
     telegraf_agent_package: telegraf
 

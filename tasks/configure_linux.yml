@@ -151,7 +151,7 @@
         name: smartmontools
 
     - name: configure_linux | Find path of smartctl
-      command: which smartctl
+      ansible.builtin.command: which smartctl
       register: which_smartctl
       ignore_errors: true
       changed_when: false

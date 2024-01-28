@@ -25,5 +25,5 @@
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: "Restart MacOS Telegraf"
-  command: brew services restart telegraf
+  ansible.builtin.command: brew services restart telegraf
   ignore_errors: "{{ ansible_check_mode }}"

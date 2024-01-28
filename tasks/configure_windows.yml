@@ -50,13 +50,13 @@
   when: telegraf_agent_version is version('1.15', '<')
 
 - name: configure_windows | Configure Telegraf"
-  win_template:
+  ansible.windows.win_template:
     src: telegraf.conf.j2
     dest: '{{ telegraf_win_install_dir }}\telegraf.conf'
   notify: "Restart Windows Telegraf"
 
 - name: configure_windows | Copy telegraf extra plugins"
-  win_template:
+  ansible.windows.win_template:
     src: "telegraf-extra-plugin.conf.j2"
     dest: '{{ telegraf_win_include }}\{{ item.key }}.conf'
   with_dict: "{{ telegraf_plugins_extra }}"
@@ -82,15 +82,16 @@
   notify: "Restart Windows Telegraf"
 
 - name: configure_windows | Check if Telegraf service is already in place"
-  win_service:
+  ansible.windows.win_service:
     name: telegraf
   register: service_result
   failed_when: service_result is not defined
 
-- debug: msg={{ service_result }}
+- name: configure_windows | Debug Results
+  ansible.builtin.debug: msg={{ service_result }}
 
 - name: configure_windows | Set service startup mode to auto and ensure it is started"
-  win_service:
+  ansible.windows.win_service:
     name: Telegraf
     start_mode: auto
     state: stopped
@@ -98,17 +99,17 @@
     - service_result.exists
 
 - name: configure_windows | Unregister Service"
-  win_command: '"{{ telegraf_win_install_dir }}\telegraf.exe" --service uninstall'
+  ansible.windows.win_command: '"{{ telegraf_win_install_dir }}\telegraf.exe" --service uninstall'
   register: telegraf_windows_uninstall
   when:
     - service_result.exists
 
 - name: configure_windows | Register Service"
-  win_command: '"{{ telegraf_win_install_dir }}\telegraf.exe" {{ telegraf_win_service_args | join(" ") }}'
+  ansible.windows.win_command: '"{{ telegraf_win_install_dir }}\telegraf.exe" {{ telegraf_win_service_args | join(" ") }}'
   register: telegraf_windows_install
 
 - name: configure_windows | Set service startup mode to auto and ensure it is started"
-  win_service:
+  ansible.windows.win_service:
     name: Telegraf
     start_mode: auto
     state: started
