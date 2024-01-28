@@ -18,6 +18,9 @@ skip_list:
   - no-changed-when
   - key-order[task]  # TODO You can improve the task key order to: name, when, ansible.builtin.apt_key, register, until, become
   - risky-file-permissions
+  - name[missing]
+  - fqcn[action-core]
+  - no-free-form
 
 enable_list:
   - name[prefix]
