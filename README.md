@@ -13,21 +13,15 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ```yaml
 ---
 - hosts: all
+  gather_facts: yes
+  become: no
+
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.ca_certificates
     - role: buluma.telegraf
-```
 
-The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
-
-```yaml
----
-
-- hosts: telegraf
   tasks:
     - name: "Installing packages on CentOS"
-      yum:
+      ansible.builtin.yum:
         name: which
         state: present
       when:
@@ -37,9 +31,11 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
       shell: apt-get update
       when:
         - ansible_os_family == 'Debian'
+      tags:
+        - molecule-idempotence-notest
 
     - name: "Installing packages on Debian"
-      apt:
+      ansible.builtin.apt:
         name:
           - wget
           - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
@@ -50,7 +46,7 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
         - ansible_distribution_major_version not in [9, 10]
 
     - name: "Installing packages on Debian"
-      apt:
+      ansible.builtin.apt:
         name:
           - wget
           - python-apt
@@ -62,12 +58,26 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
         - ansible_distribution_major_version in [9, 10]
 
     - name: "Installing packages on Suse"
-      zypper:
+      community.general.zypper:
         name:
           - aaa_base
         state: present
       when:
         - ansible_os_family == 'Suse'
+```
+
+The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
+
+```yaml
+---
+
+- hosts: all
+  gather_facts: no
+  become: no
+
+  roles:
+    - role: buluma.bootstrap
+    - role: buluma.ca_certificates
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -81,7 +91,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 telegraf_enabled: True
 # defaults file for ansible-telegraf
 
-telegraf_agent_version: 1.22.1
+telegraf_agent_version: 1.29.2
 telegraf_agent_version_patch: 1
 telegraf_agent_package: telegraf
 telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
@@ -204,9 +214,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 |---------|----|
 |[EL](https://hub.docker.com/repository/docker/buluma/enterpriselinux/general)|all|
 |[Ubuntu](https://hub.docker.com/repository/docker/buluma/ubuntu/general)|all|
-|[Kali](https://hub.docker.com/repository/docker/buluma/kali/general)|all|
-|[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|all|
-|[opensuse](https://hub.docker.com/repository/docker/buluma/opensuse/general)|all|
+|[Debian](https://hub.docker.com/repository/docker/buluma/debian/general)|bullseye|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
 

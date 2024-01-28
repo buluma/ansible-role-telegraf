@@ -59,14 +59,8 @@ jobs:
             tag: "focal"
           - image: "docker-ubuntu-systemd"
             tag: "bionic"
-          - image: "kali"
-            tag: "latest"
-          - image: "debian-systemd"
-            tag: "latest"
           - image: "debian-systemd"
             tag: "bullseye"
-          - image: "docker-opensuse-systemd"
-            tag: "latest"
     steps:
       - name: Checkout Role
         uses: actions/checkout@v4

@@ -13,15 +13,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - all
-    - name: Kali
-      versions:
-        - all
     - name: Debian
       versions:
-        - all
-    - name: opensuse
-      versions:
-        - all
+        - bullseye
 
   galaxy_tags:
     - monitoring
