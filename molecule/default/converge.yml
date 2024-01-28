@@ -4,8 +4,6 @@
   become: no
 
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.ca_certificates
     - role: ansible-role-telegraf
 
   tasks:
@@ -20,6 +18,8 @@
       shell: apt-get update
       when:
         - ansible_os_family == 'Debian'
+      tags:
+        - molecule-idempotence-notest
 
     - name: "Installing packages on Debian"
       ansible.builtin.apt:
