@@ -2,7 +2,7 @@
 # description: Configure telegraf and get all relevent ec2 information
 
 - name: configure_linux | Retrieve ec2 facts
-  amazon.aws.ec2_metadata_facts:
+  ec2_metadata_facts:
   when:
     - telegraf_agent_aws_tags
 
@@ -13,7 +13,7 @@
     - ansible_os_family == "FreeBSD"
 
 - name: configure_linux | Retrieve all ec2 tags on the instance
-  amazon.aws.ec2_tag:
+  ec2_tag:
     region: '{{ ansible_ec2_placement_region }}'
     resource: '{{ ansible_ec2_instance_id }}'
     state: list
@@ -131,7 +131,6 @@
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: configure_linux | Configure system for for docker plugin
-  when: "'docker' in telegraf_plugins_extra and not telegraf_agent_docker"
   block:
     - name: configure_linux | Add telegraf user to docker group
       ansible.builtin.user:
@@ -142,8 +141,9 @@
       notify:
         - Restart Telegraf
 
+  when: "'docker' in telegraf_plugins_extra and not telegraf_agent_docker"
+
 - name: configure_linux | Configure system for for smart plugin
-  when: "'smart' in telegraf_plugins_extra and not telegraf_agent_docker"
   block:
     - name: configure_linux | Install smartmontools
       become: true
@@ -168,8 +168,9 @@
       notify:
         - Restart Telegraf
 
+  when: "'smart' in telegraf_plugins_extra and not telegraf_agent_docker"
+
 - name: configure_linux | Configure system for for sensors plugin
-  when: "'sensors' in telegraf_plugins_extra and not telegraf_agent_docker"
   block:
     - name: configure_linux | Debian | Install lm-sensors
       ansible.builtin.package:
@@ -185,3 +186,5 @@
       notify:
         - Restart Telegraf
       when: ansible_os_family == "RedHat"
+
+  when: "'sensors' in telegraf_plugins_extra and not telegraf_agent_docker"

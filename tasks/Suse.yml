@@ -37,7 +37,7 @@
 
 - name: "Suse | Add default Open Build Service repository"
   community.general.zypper_repository:
-    repo: "{{ telegraf_zypper_repos[ansible_distribution | lower] | default(telegraf_zypper_repos['default']) }}"
+    repo: "{{ telegraf_zypper_repos[ansible_distribution|lower] | default(telegraf_zypper_repos['default']) }}"
     name: "telegraf"
     state: present
     runrefresh: True

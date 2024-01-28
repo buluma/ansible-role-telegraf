@@ -21,7 +21,7 @@
     - not file_info.stat.exists
 
 - name: configure_windows | Unzip file (newer than 1.15)"
-  community.windows.win_unzip:
+  win_unzip:
     src: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}_windows_amd64.zip'
     dest: "{{ telegraf_win_install_dir }}"
     creates: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}\telegraf.exe'
@@ -35,7 +35,7 @@
   when: telegraf_agent_version is version('1.15', '>=')
 
 - name: configure_windows | Unzip file"
-  community.windows.win_unzip:
+  win_unzip:
     src: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}_windows_amd64.zip'
     dest: '{{ telegraf_win_install_dir }}'
     creates: '{{ telegraf_win_install_dir }}\telegraf.exe'
@@ -87,7 +87,8 @@
   register: service_result
   failed_when: service_result is not defined
 
-# - ansible.builtin.debug: msg={{ service_result }}
+- name: configure_windows | Debug Results
+  ansible.builtin.debug: msg={{ service_result }}
 
 - name: configure_windows | Set service startup mode to auto and ensure it is started"
   ansible.windows.win_service:
