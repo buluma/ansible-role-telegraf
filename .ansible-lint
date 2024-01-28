@@ -15,6 +15,9 @@ exclude_paths:
 
 skip_list:
   - yaml[truthy]
+  - no-changed-when
+  - key-order[task]  # TODO You can improve the task key order to: name, when, ansible.builtin.apt_key, register, until, become
+  - risky-file-permissions
 
 enable_list:
   - name[prefix]

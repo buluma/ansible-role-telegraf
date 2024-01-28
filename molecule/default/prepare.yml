@@ -1,6 +1,6 @@
 ---
 
-- hosts: telegraf
+- hosts: all
   tasks:
     - name: "Installing packages on CentOS"
       ansible.builtin.yum:
