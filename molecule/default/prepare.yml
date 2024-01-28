@@ -4,6 +4,9 @@
   gather_facts: yes
   become: no
 
+  roles:
+    - role: buluma.bootstrap
+
   tasks:
     - name: "Installing packages on CentOS"
       ansible.builtin.yum:
