@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump release-drafter/release-drafter from 5 to 6 [\#43](https://github.com/buluma/ansible-role-telegraf/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#42](https://github.com/buluma/ansible-role-telegraf/pull/42) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 4.4.0 to 5.0.0 [\#41](https://github.com/buluma/ansible-role-telegraf/pull/41) ([dependabot[bot]](https://github.com/apps/dependabot))
 
