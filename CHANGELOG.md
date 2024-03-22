@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- Bump release-drafter/release-drafter from 5 to 6 [\#46](https://github.com/buluma/ansible-role-telegraf/pull/46) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump buluma/dependabot-auto-merge-action from 2.1.1 to 2.1.2 [\#45](https://github.com/buluma/ansible-role-telegraf/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/dependabot-auto-merge-action from 2.1.1 to 2.1.2 [\#44](https://github.com/buluma/ansible-role-telegraf/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#43](https://github.com/buluma/ansible-role-telegraf/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#42](https://github.com/buluma/ansible-role-telegraf/pull/42) ([dependabot[bot]](https://github.com/apps/dependabot))
