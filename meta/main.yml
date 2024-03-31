@@ -12,7 +12,9 @@ galaxy_info:
         - all
     - name: Ubuntu
       versions:
-        - all
+        - focal
+        - bionic
+        - jammy
     - name: Debian
       versions:
         - bullseye
