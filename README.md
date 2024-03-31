@@ -13,8 +13,14 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ```yaml
 ---
 - hosts: all
-  gather_facts: yes
-  become: no
+  gather_facts: true
+  become: false
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
 
   roles:
     - role: buluma.telegraf
@@ -72,8 +78,8 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 ---
 
 - hosts: all
-  gather_facts: no
-  become: no
+  gather_facts: false
+  become: false
 
   roles:
     - role: buluma.bootstrap
@@ -91,7 +97,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 telegraf_enabled: True
 # defaults file for ansible-telegraf
 
-telegraf_agent_version: 1.29.2
+telegraf_agent_version: "1.29.2"
 telegraf_agent_version_patch: 1
 telegraf_agent_package: telegraf
 telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
@@ -213,7 +219,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 |container|tags|
 |---------|----|
 |[EL](https://hub.docker.com/r/buluma/enterpriselinux)|all|
-|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|all|
+|[Ubuntu](https://hub.docker.com/r/buluma/ubuntu)|focal, bionic, jammy|
 |[Debian](https://hub.docker.com/r/buluma/debian)|bullseye|
 
 The minimum version of Ansible required is 2.12, tests have been done to:
