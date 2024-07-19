@@ -27,7 +27,7 @@
     dest: /etc/opt/telegraf/telegraf.conf
     owner: telegraf
     group: telegraf
-    mode: 0640
+    mode: '0640'
   become: yes
   when:
     - telegraf_agent_version is version('0.10.0', '<')
@@ -41,7 +41,7 @@
     dest: "{{ telegraf_agent_config_path }}/telegraf.conf"
     owner: telegraf
     group: telegraf
-    mode: 0640
+    mode: '0640'
   become: yes
   when:
     - telegraf_agent_version is version('0.10.0', '>=')
@@ -74,7 +74,7 @@
     path: "{{ telegraf_agent_config_path }}/telegraf.d/"
     owner: telegraf
     group: telegraf
-    mode: 0755
+    mode: '0755'
   when:
     - telegraf_plugins_extra_exclusive
     - telegraf_directory.stat.exists
@@ -89,7 +89,7 @@
     dest: "{{ telegraf_agent_config_path }}/telegraf.d/{{ item.key }}.conf"
     owner: telegraf
     group: telegraf
-    mode: 0640
+    mode: '0640'
   with_dict: "{{ telegraf_plugins_extra }}"
   loop_control:
     label: "{{ item.key }}"
@@ -162,7 +162,7 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK (Ensure telegraf user can execute smartctl)"
         dest: "/etc/sudoers.d/telegraf"
         block: "telegraf ALL=(root) NOPASSWD: {{ which_smartctl.stdout }}"
-        mode: 0400
+        mode: '0400'
         create: true
       become: true
       notify:

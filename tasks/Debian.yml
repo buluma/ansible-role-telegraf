@@ -63,7 +63,7 @@
             path: /usr/share/keyrings
             owner: root
             group: root
-            mode: 0755
+            mode: '0755'
           when:
             - not usr_share_keyrings.stat.exists
           become: yes

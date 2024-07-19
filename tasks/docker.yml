@@ -22,7 +22,7 @@
     path: /etc/telegraf
     owner: telegraf
     group: telegraf
-    mode: 0750
+    mode: '0750'
     state: directory
   become: yes
 
@@ -31,7 +31,7 @@
     path: /etc/telegraf/telegraf.d
     owner: telegraf
     group: telegraf
-    mode: 0750
+    mode: '0750'
     state: directory
   become: yes
 
