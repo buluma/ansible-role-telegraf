@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump actions/setup-python from 5.1.1 to 5.2.0 [\#51](https://github.com/buluma/ansible-role-telegraf/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 5.1.0 to 5.1.1 [\#50](https://github.com/buluma/ansible-role-telegraf/pull/50) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v24.3.31](https://github.com/buluma/ansible-role-telegraf/tree/v24.3.31) (2024-03-31)
