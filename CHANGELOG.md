@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump ansible/ansible-lint from 24.7.0 to 24.9.0 [\#52](https://github.com/buluma/ansible-role-telegraf/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 5.1.1 to 5.2.0 [\#51](https://github.com/buluma/ansible-role-telegraf/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 5.1.0 to 5.1.1 [\#50](https://github.com/buluma/ansible-role-telegraf/pull/50) ([dependabot[bot]](https://github.com/apps/dependabot))
 
