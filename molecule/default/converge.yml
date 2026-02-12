@@ -10,7 +10,7 @@
       changed_when: false
 
   roles:
-    - role: ansible-role-telegraf
+    - role: buluma.telegraf
 
   tasks:
     - name: "Installing packages on CentOS"
