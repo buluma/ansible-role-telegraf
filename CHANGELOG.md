@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v24.3.31...HEAD)
 
+**Closed issues:**
+
+- Update action [\#37](https://github.com/buluma/ansible-role-telegraf/issues/37)
+- rebuild action [\#36](https://github.com/buluma/ansible-role-telegraf/issues/36)
+
 **Merged pull requests:**
 
 - Bump actions/setup-python from 5.2.0 to 5.3.0 [\#54](https://github.com/buluma/ansible-role-telegraf/pull/54) ([dependabot[bot]](https://github.com/apps/dependabot))
