@@ -1,48 +1,37 @@
----
-# tasks file for ansible-telegraf
-
-- name: "Install on RedHat"
-  ansible.builtin.import_tasks: "RedHat.yml"
+- ansible.builtin.import_tasks: RedHat.yml
+  name: Install on RedHat
   when:
-    - ansible_os_family == "RedHat" and not telegraf_agent_docker
-
-- name: "Install on Debian"
-  ansible.builtin.import_tasks: "Debian.yml"
-  when:
-    - ansible_os_family == "Debian" and not telegraf_agent_docker
+  - ansible_os_family == "RedHat" and not telegraf_agent_docker
+- ansible.builtin.import_tasks: Debian.yml
+  name: Install on Debian
   tags:
-    - telegraf
-    - packages
-
-- name: "Install on Suse"
-  ansible.builtin.import_tasks: "Suse.yml"
+  - telegraf
+  - packages
+  when:
+  - ansible_os_family == "Debian" and not telegraf_agent_docker
+- ansible.builtin.import_tasks: Suse.yml
+  name: Install on Suse
   when: ansible_os_family == "Suse" and not telegraf_agent_docker
-
-- name: "Install on FreeBSD"
-  ansible.builtin.import_tasks: "FreeBSD.yml"
+- ansible.builtin.import_tasks: FreeBSD.yml
+  name: Install on FreeBSD
   when:
-    - ansible_os_family == "FreeBSD" and not telegraf_agent_docker
-
-- name: "Install on MacOS"
-  ansible.builtin.import_tasks: "MacOS.yml"
+  - ansible_os_family == "FreeBSD" and not telegraf_agent_docker
+- ansible.builtin.import_tasks: MacOS.yml
+  name: Install on MacOS
   when:
-    - ansible_os_family == "Darwin" and not telegraf_agent_docker
-
-- name: "Install Docker agent"
-  ansible.builtin.import_tasks: "docker.yml"
+  - ansible_os_family == "Darwin" and not telegraf_agent_docker
+- ansible.builtin.import_tasks: docker.yml
+  name: Install Docker agent
   when: telegraf_agent_docker
-
-- name: "Configure Telegraf"
-  ansible.builtin.import_tasks: "configure_linux.yml"
+- ansible.builtin.import_tasks: configure_linux.yml
+  name: Configure Telegraf
   when:
-    - ansible_os_family not in ['Windows', 'Darwin']
-
-- name: "Install / Configure telegraf on Windows"
-  ansible.builtin.import_tasks: "configure_windows.yml"
+  - ansible_os_family not in ['Windows', 'Darwin']
+- ansible.builtin.import_tasks: configure_windows.yml
+  name: Install / Configure telegraf on Windows
   when:
-    - ansible_os_family == "Windows" and not telegraf_agent_docker
-
-- name: "Install / Configure telegraf on MacOS"
-  ansible.builtin.import_tasks: "configure_macos.yml"
+  - ansible_os_family == "Windows" and not telegraf_agent_docker
+- ansible.builtin.import_tasks: configure_macos.yml
+  name: Install / Configure telegraf on MacOS
   when:
-    - ansible_os_family == "Darwin" and not telegraf_agent_docker
+  - ansible_os_family == "Darwin" and not telegraf_agent_docker

@@ -11,79 +11,70 @@ Installing and configuring Telegraf
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
----
-- hosts: all
+- become: false
   gather_facts: true
-  become: false
-
+  hosts: all
   pre_tasks:
-    - name: Update apt cache.
-      apt: update_cache=yes cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
+  - apt: update_cache=yes cache_valid_time=600
+    changed_when: false
+    name: Update apt cache.
+    when: ansible_os_family == 'Debian'
   roles:
-    - role: buluma.telegraf
-
+  - role: buluma.telegraf
   tasks:
-    - name: "Installing packages on CentOS"
-      ansible.builtin.yum:
-        name: which
-        state: present
-      when:
-        - ansible_os_family == 'RedHat'
-
-    - name: "Apt get update"
-      shell: apt-get update
-      when:
-        - ansible_os_family == 'Debian'
-      tags:
-        - molecule-idempotence-notest
-
-    - name: "Installing packages on Debian"
-      ansible.builtin.apt:
-        name:
-          - wget
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
-        update_cache: True
-        state: present
-      when:
-        - ansible_os_family == 'Debian'
-        - ansible_distribution_major_version not in [9, 10]
-
-    - name: "Installing packages on Debian"
-      ansible.builtin.apt:
-        name:
-          - wget
-          - python-apt
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
-        update_cache: True
-        state: present
-      when:
-        - ansible_os_family == 'Debian'
-        - ansible_distribution_major_version in [9, 10]
-
-    - name: "Installing packages on Suse"
-      community.general.zypper:
-        name:
-          - aaa_base
-        state: present
-      when:
-        - ansible_os_family == 'Suse'
+  - ansible.builtin.yum:
+      name: which
+      state: present
+    name: Installing packages on CentOS
+    when:
+    - ansible_os_family == 'RedHat'
+  - name: Apt get update
+    shell: apt-get update
+    tags:
+    - molecule-idempotence-notest
+    when:
+    - ansible_os_family == 'Debian'
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version not in [9, 10]
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - python-apt
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version in [9, 10]
+  - community.general.zypper:
+      name:
+      - aaa_base
+      state: present
+    name: Installing packages on Suse
+    when:
+    - ansible_os_family == 'Suse'
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
 
 ```yaml
----
-
-- hosts: all
+- become: false
   gather_facts: false
-  become: false
-
+  hosts: all
   roles:
-    - role: buluma.bootstrap
-    - role: buluma.ca_certificates
+  - role: buluma.bootstrap
+  - role: buluma.ca_certificates
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -93,102 +84,87 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/defaults/main.yml):
 
 ```yaml
----
-telegraf_enabled: True
-# defaults file for ansible-telegraf
-
-telegraf_agent_version: "1.29.2"
-telegraf_agent_version_patch: 1
-telegraf_agent_package: telegraf
-telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
-telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}.{{ ansible_architecture }}.rpm
-telegraf_agent_package_path: /tmp
-telegraf_agent_package_method: repo
-telegraf_agent_package_state: present
-telegraf_agent_hostname: "{{ ansible_fqdn }}"
-telegraf_agent_interval: 10
-telegraf_agent_debug: False
-telegraf_agent_round_interval: True
-telegraf_agent_flush_interval: 10
-telegraf_agent_flush_jitter: 0
-telegraf_agent_aws_tags: False
-telegraf_agent_aws_tags_prefix: ""
+telegraf_agent_aws_tags: false
+telegraf_agent_aws_tags_prefix: ''
+telegraf_agent_collection_jitter: 0
 telegraf_agent_config_path: /etc/telegraf
-telegraf_win_logfile_rotation_max_archives: 3
-
-# Docker specific settings
-telegraf_uid_docker: 998
-telegraf_gid_docker: 995
-telegraf_agent_docker: False
+telegraf_agent_debug: false
+telegraf_agent_docker: false
+telegraf_agent_docker_image_version: '{{ telegraf_agent_version }}'
 telegraf_agent_docker_name: telegraf
 telegraf_agent_docker_network_mode: bridge
 telegraf_agent_docker_restart_policy: unless-stopped
-telegraf_agent_docker_image_version: "{{ telegraf_agent_version }}"
-
-# v0.13 settings (not sure if supported in older version):
-telegraf_agent_collection_jitter: 0
+telegraf_agent_flush_interval: 10
+telegraf_agent_flush_jitter: 0
+telegraf_agent_hostname: '{{ ansible_fqdn }}'
+telegraf_agent_interval: 10
+telegraf_agent_logfile: ''
 telegraf_agent_metric_batch_size: 1000
 telegraf_agent_metric_buffer_limit: 10000
-telegraf_agent_quiet: False
-
-# v1.1 settings:
-telegraf_agent_logfile: ""
-telegraf_agent_omit_hostname: False
-
-telegraf_global_tags: []
-
+telegraf_agent_omit_hostname: false
 telegraf_agent_output:
-  - type: influxdb
-    config:
-      - urls = ["http://localhost:8086"]
-      - database = "telegraf"
-      - precision = "s"
-
-# defaults - /etc/telegraf/telegraf.conf
-telegraf_plugins_default:
-  - plugin: cpu
-    config:
-      - percpu = true
-  - plugin: disk
-  - plugin: io
-  - plugin: mem
-  - plugin: net
-  - plugin: system
-  - plugin: swap
-  - plugin: netstat
-  - plugin: processes
-  - plugin: kernel
-
-# extra configuration - /etc/telegraf/telegraf.d/*
-telegraf_plugins_extra: {}
-telegraf_plugins_extra_exclusive: False
-
-# RedHat specific settings for convenience
-telegraf_redhat_releasever: "$releasever"
-
-telegraf_yum_baseurl:
-  amazon: "https://repos.influxdata.com/centos/6/$basearch/stable"
-  centos: "https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable"
-  default: "https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ telegraf_redhat_releasever }}/$basearch/stable"
-  redhat: "https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable"
-  rocky: "https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable"
-telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive_compat.key"
-
-telegraf_zypper_repos:
-  "opensuse tumbleweed": "http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/"
-  "default": "http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/"
-  "sles": "http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_distribution_major_version }}_SP{{ ansible_distribution_release }}/"
-  "opensuse leap": "http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_distribution_version }}/"
-
-telegraf_win_install_dir: 'C:\Telegraf'
-telegraf_win_logfile: 'C:\\Telegraf\\telegraf.log'
-telegraf_win_include: 'C:\Telegraf\telegraf_agent.d'
-telegraf_win_service_args:
-  - -service install
-  - '-config "{{ telegraf_win_install_dir }}\telegraf.conf"'
-  - '--config-directory "{{ telegraf_win_include }}"'
-telegraf_mac_user: user
+- config:
+  - urls = ["http://localhost:8086"]
+  - database = "telegraf"
+  - precision = "s"
+  type: influxdb
+telegraf_agent_package: telegraf
+telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch
+  }}_{{ telegraf_agent_package_arch }}.deb
+telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch
+  }}.{{ ansible_architecture }}.rpm
+telegraf_agent_package_method: repo
+telegraf_agent_package_path: /tmp
+telegraf_agent_package_state: present
+telegraf_agent_quiet: false
+telegraf_agent_round_interval: true
+telegraf_agent_version: 1.29.2
+telegraf_agent_version_patch: 1
+telegraf_enabled: true
+telegraf_gid_docker: 995
+telegraf_global_tags: []
 telegraf_mac_group: admin
+telegraf_mac_user: user
+telegraf_plugins_default:
+- config:
+  - percpu = true
+  plugin: cpu
+- plugin: disk
+- plugin: io
+- plugin: mem
+- plugin: net
+- plugin: system
+- plugin: swap
+- plugin: netstat
+- plugin: processes
+- plugin: kernel
+telegraf_plugins_extra: {}
+telegraf_plugins_extra_exclusive: false
+telegraf_redhat_releasever: $releasever
+telegraf_uid_docker: 998
+telegraf_win_include: C:\Telegraf\telegraf_agent.d
+telegraf_win_install_dir: C:\Telegraf
+telegraf_win_logfile: C:\\Telegraf\\telegraf.log
+telegraf_win_logfile_rotation_max_archives: 3
+telegraf_win_service_args:
+- -service install
+- -config "{{ telegraf_win_install_dir }}\telegraf.conf"
+- --config-directory "{{ telegraf_win_include }}"
+telegraf_yum_baseurl:
+  amazon: https://repos.influxdata.com/centos/6/$basearch/stable
+  centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
+  default: https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ telegraf_redhat_releasever
+    }}/$basearch/stable
+  redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
+  rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
+telegraf_yum_gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
+telegraf_zypper_repos:
+  default: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
+  opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{
+    ansible_distribution_version }}/
+  opensuse tumbleweed: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
+  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_distribution_major_version
+    }}_SP{{ ansible_distribution_release }}/
 ```
 
 ## [Requirements](#requirements)

@@ -1,59 +1,53 @@
----
-
-- name: docker | Adding Telegraf group
-  ansible.builtin.group:
+- ansible.builtin.group:
+    gid: '{{ telegraf_gid_docker }}'
     name: telegraf
     state: present
-    gid: "{{ telegraf_gid_docker }}"
-
-- name: docker | Adding Telegraf user
-  ansible.builtin.user:
-    name: telegraf
+  name: docker | Adding Telegraf group
+- ansible.builtin.user:
+    create_home: false
     group: telegraf
-    state: present
-    create_home: False
     home: /etc/telegraf
-    uid: "{{ telegraf_uid_docker }}"
-    system: True
-  become: yes
-
-- name: docker | Create /etc/telegraf (home) directory
-  ansible.builtin.file:
+    name: telegraf
+    state: present
+    system: true
+    uid: '{{ telegraf_uid_docker }}'
+  become: true
+  name: docker | Adding Telegraf user
+- ansible.builtin.file:
+    group: telegraf
+    mode: '0750'
+    owner: telegraf
     path: /etc/telegraf
-    owner: telegraf
+    state: directory
+  become: true
+  name: docker | Create /etc/telegraf (home) directory
+- ansible.builtin.file:
     group: telegraf
     mode: '0750'
-    state: directory
-  become: yes
-
-- name: docker | Create /etc/telegraf.d directory
-  ansible.builtin.file:
+    owner: telegraf
     path: /etc/telegraf/telegraf.d
-    owner: telegraf
-    group: telegraf
-    mode: '0750'
     state: directory
-  become: yes
-
-- name: docker | Ensure Telegraf Docker container is running
-  community.docker.docker_container:
-    name: "{{ telegraf_agent_docker_name }}"
-    image: "telegraf:{{ telegraf_agent_docker_image_version }}"
-    state: started
-    restart_policy: "{{ telegraf_agent_docker_restart_policy }}"
+  become: true
+  name: docker | Create /etc/telegraf.d directory
+- community.docker.docker_container:
     command: -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d
-    network_mode: "{{ telegraf_agent_docker_network_mode }}"
-    security_opts:
-      - apparmor:unconfined
-    volumes:
-      - /etc/telegraf:/etc/telegraf:ro
-      - /:/hostfs:ro
-      - /etc:/hostfs/etc:ro
-      - /proc:/hostfs/proc:ro
-      - /sys:/hostfs/sys:ro
-      - /var/run:/var/run:ro
     env:
-      HOST_MOUNT_PREFIX: /hostfs
       HOST_ETC: /hostfs/etc
+      HOST_MOUNT_PREFIX: /hostfs
       HOST_PROC: /hostfs/proc
       HOST_SYS: /hostfs/sys
+    image: telegraf:{{ telegraf_agent_docker_image_version }}
+    name: '{{ telegraf_agent_docker_name }}'
+    network_mode: '{{ telegraf_agent_docker_network_mode }}'
+    restart_policy: '{{ telegraf_agent_docker_restart_policy }}'
+    security_opts:
+    - apparmor:unconfined
+    state: started
+    volumes:
+    - /etc/telegraf:/etc/telegraf:ro
+    - /:/hostfs:ro
+    - /etc:/hostfs/etc:ro
+    - /proc:/hostfs/proc:ro
+    - /sys:/hostfs/sys:ro
+    - /var/run:/var/run:ro
+  name: docker | Ensure Telegraf Docker container is running
