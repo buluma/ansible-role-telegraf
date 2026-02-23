@@ -1,32 +1,33 @@
+---
 name: MasterRun
 true:
   push:
     branches:
-    - master
-    - main
-  workflow_dispatch: null
+      - master
+      - main
+  workflow_dispatch:
 jobs:
   runme:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout dj-wasabi-release repo
-      uses: actions/checkout@v2
-      with:
-        path: dj-wasabi-release
-        repository: dj-wasabi/dj-wasabi-release
-    - name: Checkout current repo
-      uses: actions/checkout@v2
-      with:
-        path: main
-    - env:
-        CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      name: Commit Changelog file
-      run: "# We are cloned in the 'main' directory and the dj-wasabi-release\n# repository\
-        \ is the 'dj-wasabi-release' next to 'main'\ncd main\n\n# Generate CHANGELOG.md\
-        \ file\n../dj-wasabi-release/release.sh -d\n\n# Let commit the changes if\
-        \ there are any? (Well there should be!)\nif [[ $(git status | grep -c 'CHANGELOG.md'\
-        \ || true) -gt 0 ]]\n  then  echo \"Committing file\"\n        git config\
-        \ --global user.name 'Shadow Walker [GH bot]'\n        git config --global\
-        \ user.email 'github@buluma.me.ke'\n\n        git add CHANGELOG.md\n     \
-        \   git commit -m \"Updated CHANGELOG.md on \\\"$(date \"+%Y-%m-%d %H:%M:%S\"\
-        )\\\"\" CHANGELOG.md\n        git push\nfi\n"
+      - name: Checkout dj-wasabi-release repo
+        uses: actions/checkout@v6
+        with:
+          path: dj-wasabi-release
+          repository: dj-wasabi/dj-wasabi-release
+      - name: Checkout current repo
+        uses: actions/checkout@v6
+        with:
+          path: main
+      - env:
+          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: Commit Changelog file
+        run: "# We are cloned in the 'main' directory and the dj-wasabi-release\n\
+          # repository is the 'dj-wasabi-release' next to 'main'\ncd main\n\n# Generate
+          CHANGELOG.md file\n../dj-wasabi-release/release.sh -d\n\n# Let commit the
+          changes if there are any? (Well there should be!)\nif [[ $(git status |
+          grep -c 'CHANGELOG.md' || true) -gt 0 ]]\n  then  echo \"Committing file\"\
+          \n        git config --global user.name 'Shadow Walker [GH bot]'\n     \
+          \   git config --global user.email 'github@buluma.me.ke'\n\n        git
+          add CHANGELOG.md\n        git commit -m \"Updated CHANGELOG.md on \\\"$(date
+          \"+%Y-%m-%d %H:%M:%S\")\\\"\" CHANGELOG.md\n        git push\nfi\n"
