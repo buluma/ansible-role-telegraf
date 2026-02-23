@@ -1,54 +1,54 @@
 ---
-  - become: false
-    gather_facts: true
-    hosts: all
-    pre_tasks:
-      - apt: update_cache=yes cache_valid_time=600
-        changed_when: false
-        name: Update apt cache.
-        when: ansible_os_family == 'Debian'
-    roles:
-      - role: buluma.telegraf
-    tasks:
-      - ansible.builtin.yum:
-          name: which
-          state: present
-        name: Installing packages on CentOS
-        when:
-          - ansible_os_family == 'RedHat'
-      - name: Apt get update
-        shell: apt-get update
-        tags:
-          - molecule-idempotence-notest
-        when:
-          - ansible_os_family == 'Debian'
-      - ansible.builtin.apt:
-          name:
-            - wget
-            - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'',
-              ''18'', ''16''] else ''gpg-agent'' }}'
-          state: present
-          update_cache: true
-        name: Installing packages on Debian
-        when:
-          - ansible_os_family == 'Debian'
-          - ansible_distribution_major_version not in [9, 10]
-      - ansible.builtin.apt:
-          name:
-            - wget
-            - python-apt
-            - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'',
-              ''18'', ''16''] else ''gpg-agent'' }}'
-          state: present
-          update_cache: true
-        name: Installing packages on Debian
-        when:
-          - ansible_os_family == 'Debian'
-          - ansible_distribution_major_version in [9, 10]
-      - community.general.zypper:
-          name:
-            - aaa_base
-          state: present
-        name: Installing packages on Suse
-        when:
-          - ansible_os_family == 'Suse'
+- become: false
+  gather_facts: true
+  hosts: all
+  pre_tasks:
+  - apt: update_cache=yes cache_valid_time=600
+    changed_when: false
+    name: Update apt cache.
+    when: ansible_os_family == 'Debian'
+  roles:
+  - role: buluma.telegraf
+  tasks:
+  - ansible.builtin.yum:
+      name: which
+      state: present
+    name: Installing packages on CentOS
+    when:
+    - ansible_os_family == 'RedHat'
+  - name: Apt get update
+    shell: apt-get update
+    tags:
+    - molecule-idempotence-notest
+    when:
+    - ansible_os_family == 'Debian'
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version not in [9, 10]
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - python-apt
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version in [9, 10]
+  - community.general.zypper:
+      name:
+      - aaa_base
+      state: present
+    name: Installing packages on Suse
+    when:
+    - ansible_os_family == 'Suse'

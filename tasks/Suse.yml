@@ -1,70 +1,70 @@
 ---
-  - ansible.builtin.group:
-      name: telegraf
-      state: present
-    name: Suse | Adding Telegraf group
-  - ansible.builtin.user:
-      group: telegraf
-      name: telegraf
-      state: present
-    become: true
-    name: Suse | Adding Telegraf user
-  - become: true
-    community.general.zypper:
-      name:
-        - python-libxml2
-        - python-xml
-      state: present
-      update_cache: true
-    name: Suse | Install repo dependencies for Python 2
-    register: are_telegraf_dependencies_packages_installed
-    until: are_telegraf_dependencies_packages_installed is succeeded
-    when: ansible_python.version.major == 2
-  - become: true
-    community.general.zypper:
-      name:
-        - python3-libxml2-python
-      state: present
-      update_cache: true
-    name: Suse | Install repo dependencies for Python >= 3
-    register: are_telegraf_dependencies_packages_installed
-    until: are_telegraf_dependencies_packages_installed is succeeded
-    when: ansible_python.version.major >= 3
-  - become: true
-    community.general.zypper_repository:
-      auto_import_keys: true
-      name: telegraf
-      repo: '{{ telegraf_zypper_repos[ansible_distribution|lower] | default(telegraf_zypper_repos[''default''])
-        }}'
-      runrefresh: true
-      state: present
-    name: Suse | Add default Open Build Service repository
-    when: telegraf_zypper_baseurl is not defined
-  - become: true
-    community.general.zypper_repository:
-      auto_import_keys: true
-      name: telegraf
-      repo: '{{ telegraf_zypper_baseurl }}'
-      runrefresh: true
-      state: present
-    name: Suse | Add specified package repository
-    when: telegraf_zypper_baseurl is defined
-  - become: true
-    community.general.zypper:
-      name: '{{ telegraf_agent_package }}'
-      state: '{{ telegraf_agent_package_state }}'
-    ignore_errors: '{{ ansible_check_mode }}'
-    name: Suse | Install Telegraf
-    register: is_telegraf_package_installed
-    until: is_telegraf_package_installed is succeeded
-  - ansible.builtin.file:
-      mode: '0755'
-      owner: '{{ item.owner }}'
-      path: '{{ item.path }}'
-      state: directory
-    name: Suse | Create directories for telegraf
-    with_items:
-      - owner: root
-        path: /etc/telegraf/telegraf.d/
-      - owner: telegraf
-        path: /var/log/telegraf
+- ansible.builtin.group:
+    name: telegraf
+    state: present
+  name: Suse | Adding Telegraf group
+- ansible.builtin.user:
+    group: telegraf
+    name: telegraf
+    state: present
+  become: true
+  name: Suse | Adding Telegraf user
+- become: true
+  community.general.zypper:
+    name:
+    - python-libxml2
+    - python-xml
+    state: present
+    update_cache: true
+  name: Suse | Install repo dependencies for Python 2
+  register: are_telegraf_dependencies_packages_installed
+  until: are_telegraf_dependencies_packages_installed is succeeded
+  when: ansible_python.version.major == 2
+- become: true
+  community.general.zypper:
+    name:
+    - python3-libxml2-python
+    state: present
+    update_cache: true
+  name: Suse | Install repo dependencies for Python >= 3
+  register: are_telegraf_dependencies_packages_installed
+  until: are_telegraf_dependencies_packages_installed is succeeded
+  when: ansible_python.version.major >= 3
+- become: true
+  community.general.zypper_repository:
+    auto_import_keys: true
+    name: telegraf
+    repo: '{{ telegraf_zypper_repos[ansible_distribution|lower] | default(telegraf_zypper_repos[''default''])
+      }}'
+    runrefresh: true
+    state: present
+  name: Suse | Add default Open Build Service repository
+  when: telegraf_zypper_baseurl is not defined
+- become: true
+  community.general.zypper_repository:
+    auto_import_keys: true
+    name: telegraf
+    repo: '{{ telegraf_zypper_baseurl }}'
+    runrefresh: true
+    state: present
+  name: Suse | Add specified package repository
+  when: telegraf_zypper_baseurl is defined
+- become: true
+  community.general.zypper:
+    name: '{{ telegraf_agent_package }}'
+    state: '{{ telegraf_agent_package_state }}'
+  ignore_errors: '{{ ansible_check_mode }}'
+  name: Suse | Install Telegraf
+  register: is_telegraf_package_installed
+  until: is_telegraf_package_installed is succeeded
+- ansible.builtin.file:
+    mode: '0755'
+    owner: '{{ item.owner }}'
+    path: '{{ item.path }}'
+    state: directory
+  name: Suse | Create directories for telegraf
+  with_items:
+  - owner: root
+    path: /etc/telegraf/telegraf.d/
+  - owner: telegraf
+    path: /var/log/telegraf

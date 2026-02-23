@@ -12,71 +12,71 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
 ```yaml
 ---
-  - become: false
-    gather_facts: true
-    hosts: all
-    pre_tasks:
-      - apt: update_cache=yes cache_valid_time=600
-        changed_when: false
-        name: Update apt cache.
-        when: ansible_os_family == 'Debian'
-    roles:
-      - role: buluma.telegraf
-    tasks:
-      - ansible.builtin.yum:
-          name: which
-          state: present
-        name: Installing packages on CentOS
-        when:
-          - ansible_os_family == 'RedHat'
-      - name: Apt get update
-        shell: apt-get update
-        tags:
-          - molecule-idempotence-notest
-        when:
-          - ansible_os_family == 'Debian'
-      - ansible.builtin.apt:
-          name:
-            - wget
-            - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'',
-              ''18'', ''16''] else ''gpg-agent'' }}'
-          state: present
-          update_cache: true
-        name: Installing packages on Debian
-        when:
-          - ansible_os_family == 'Debian'
-          - ansible_distribution_major_version not in [9, 10]
-      - ansible.builtin.apt:
-          name:
-            - wget
-            - python-apt
-            - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'',
-              ''18'', ''16''] else ''gpg-agent'' }}'
-          state: present
-          update_cache: true
-        name: Installing packages on Debian
-        when:
-          - ansible_os_family == 'Debian'
-          - ansible_distribution_major_version in [9, 10]
-      - community.general.zypper:
-          name:
-            - aaa_base
-          state: present
-        name: Installing packages on Suse
-        when:
-          - ansible_os_family == 'Suse'
+- become: false
+  gather_facts: true
+  hosts: all
+  pre_tasks:
+  - apt: update_cache=yes cache_valid_time=600
+    changed_when: false
+    name: Update apt cache.
+    when: ansible_os_family == 'Debian'
+  roles:
+  - role: buluma.telegraf
+  tasks:
+  - ansible.builtin.yum:
+      name: which
+      state: present
+    name: Installing packages on CentOS
+    when:
+    - ansible_os_family == 'RedHat'
+  - name: Apt get update
+    shell: apt-get update
+    tags:
+    - molecule-idempotence-notest
+    when:
+    - ansible_os_family == 'Debian'
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version not in [9, 10]
+  - ansible.builtin.apt:
+      name:
+      - wget
+      - python-apt
+      - '{{ ''gnupg-agent'' if ansible_distribution_major_version in [''8'', ''18'',
+        ''16''] else ''gpg-agent'' }}'
+      state: present
+      update_cache: true
+    name: Installing packages on Debian
+    when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version in [9, 10]
+  - community.general.zypper:
+      name:
+      - aaa_base
+      state: present
+    name: Installing packages on Suse
+    when:
+    - ansible_os_family == 'Suse'
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
 
 ```yaml
 ---
-  - become: false
-    gather_facts: false
-    hosts: all
-    roles:
-      - role: buluma.bootstrap
-      - role: buluma.ca_certificates
+- become: false
+  gather_facts: false
+  hosts: all
+  roles:
+  - role: buluma.bootstrap
+  - role: buluma.ca_certificates
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -106,11 +106,11 @@ telegraf_agent_metric_batch_size: 1000
 telegraf_agent_metric_buffer_limit: 10000
 telegraf_agent_omit_hostname: false
 telegraf_agent_output:
-  - config:
-      - urls = ["http://localhost:8086"]
-      - database = "telegraf"
-      - precision = "s"
-    type: influxdb
+- config:
+  - urls = ["http://localhost:8086"]
+  - database = "telegraf"
+  - precision = "s"
+  type: influxdb
 telegraf_agent_package: telegraf
 telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ 
   telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
@@ -129,18 +129,18 @@ telegraf_global_tags: []
 telegraf_mac_group: admin
 telegraf_mac_user: user
 telegraf_plugins_default:
-  - config:
-      - percpu = true
-    plugin: cpu
-  - plugin: disk
-  - plugin: io
-  - plugin: mem
-  - plugin: net
-  - plugin: system
-  - plugin: swap
-  - plugin: netstat
-  - plugin: processes
-  - plugin: kernel
+- config:
+  - percpu = true
+  plugin: cpu
+- plugin: disk
+- plugin: io
+- plugin: mem
+- plugin: net
+- plugin: system
+- plugin: swap
+- plugin: netstat
+- plugin: processes
+- plugin: kernel
 telegraf_plugins_extra: {}
 telegraf_plugins_extra_exclusive: false
 telegraf_redhat_releasever: $releasever
@@ -150,9 +150,9 @@ telegraf_win_install_dir: C:\Telegraf
 telegraf_win_logfile: C:\\Telegraf\\telegraf.log
 telegraf_win_logfile_rotation_max_archives: 3
 telegraf_win_service_args:
-  - -service install
-  - -config "{{ telegraf_win_install_dir }}\telegraf.conf"
-  - --config-directory "{{ telegraf_win_include }}"
+- -service install
+- -config "{{ telegraf_win_install_dir }}\telegraf.conf"
+- --config-directory "{{ telegraf_win_include }}"
 telegraf_yum_baseurl:
   amazon: https://repos.influxdata.com/centos/6/$basearch/stable
   centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever 

@@ -1,7 +1,7 @@
 ---
-  - become: false
-    gather_facts: false
-    hosts: all
-    roles:
-      - role: buluma.bootstrap
-      - role: buluma.ca_certificates
+- become: false
+  gather_facts: false
+  hosts: all
+  roles:
+  - role: buluma.bootstrap
+  - role: buluma.ca_certificates
