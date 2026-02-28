@@ -9,7 +9,7 @@
   notify: Restart Telegraf
   register: is_telegraf_package_installed
   until: is_telegraf_package_installed is succeeded
-- command: sysrc telegraf_flags="-quiet 
+- command: sysrc telegraf_flags="-quiet
     -config-directory=/usr/local/etc/telegraf.d"
   name: FreeBSD | Add telegraf_flags for extra plugins
   tags:

@@ -112,9 +112,9 @@ telegraf_agent_output:
   - precision = "s"
   type: influxdb
 telegraf_agent_package: telegraf
-telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ 
+telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{
   telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
-telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{ 
+telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{
   telegraf_agent_version_patch }}.{{ ansible_architecture }}.rpm
 telegraf_agent_package_method: repo
 telegraf_agent_package_path: /tmp
@@ -155,24 +155,24 @@ telegraf_win_service_args:
 - --config-directory "{{ telegraf_win_include }}"
 telegraf_yum_baseurl:
   amazon: https://repos.influxdata.com/centos/6/$basearch/stable
-  centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever 
+  centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever
     }}/$basearch/stable
-  default: https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ 
+  default: https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{
     telegraf_redhat_releasever }}/$basearch/stable
-  redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever 
+  redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever
     }}/$basearch/stable
-  rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever 
+  rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever
     }}/$basearch/stable
 telegraf_yum_gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
 telegraf_zypper_repos:
-  default: 
+  default:
     http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  opensuse leap: 
+  opensuse leap:
     http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{
     ansible_distribution_version }}/
-  opensuse tumbleweed: 
+  opensuse tumbleweed:
     http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ 
+  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{
     ansible_distribution_major_version }}_SP{{ ansible_distribution_release }}/
 ```
 
@@ -221,4 +221,3 @@ If you find issues, please register them on [GitHub](https://github.com/buluma/a
 ## [Author Information](#author-information)
 
 [buluma](https://buluma.github.io/)
-

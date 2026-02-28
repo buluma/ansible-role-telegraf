@@ -31,7 +31,7 @@
   become: true
   name: docker | Create /etc/telegraf.d directory
 - community.docker.docker_container:
-    command: -config /etc/telegraf/telegraf.conf -config-directory 
+    command: -config /etc/telegraf/telegraf.conf -config-directory
       /etc/telegraf/telegraf.d
     env:
       HOST_ETC: /hostfs/etc

@@ -44,7 +44,7 @@
   - telegraf_agent_version is version('0.10.0', '>=')
 - ansible.builtin.stat:
     path: '{{ telegraf_agent_config_path }}/telegraf.d'
-  name: configure_linux | "Check if extra plugins directory exists in case of 
+  name: configure_linux | "Check if extra plugins directory exists in case of
     exclusive"
   register: telegraf_directory
   when:

@@ -22,7 +22,7 @@
   - telegraf_agent_package_method == "repo"
 - ansible.builtin.get_url:
     dest: '{{ telegraf_agent_package }}'
-    url: https://dl.influxdata.com/telegraf/releases/{{ 
+    url: https://dl.influxdata.com/telegraf/releases/{{
       telegraf_agent_package_file_rpm }}
     use_proxy: '{{ true if http_proxy is defined and http_proxy else false }}'
   environment:

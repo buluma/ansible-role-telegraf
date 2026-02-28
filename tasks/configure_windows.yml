@@ -12,7 +12,7 @@
   register: file_info
 - ansible.windows.win_get_url:
     dest: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}_windows_amd64.zip'
-    url: https://dl.influxdata.com/telegraf/releases/telegraf-{{ 
+    url: https://dl.influxdata.com/telegraf/releases/telegraf-{{
       telegraf_agent_version }}_windows_amd64.zip
   name: configure_windows | Download Telegraf Agent Zip file"
   when:
@@ -82,7 +82,7 @@
     name: Telegraf
     start_mode: auto
     state: stopped
-  name: configure_windows | Set service startup mode to auto and ensure it is 
+  name: configure_windows | Set service startup mode to auto and ensure it is
     started"
   when:
   - service_result.exists
@@ -100,7 +100,7 @@
     name: Telegraf
     start_mode: auto
     state: started
-  name: configure_windows | Set service startup mode to auto and ensure it is 
+  name: configure_windows | Set service startup mode to auto and ensure it is
     started"
 - ansible.windows.win_file:
     path: '{{ telegraf_win_install_dir }}\telegraf-{{ telegraf_agent_version }}'
