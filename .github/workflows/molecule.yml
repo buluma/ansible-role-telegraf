@@ -57,7 +57,7 @@ jobs:
           path: ansible-role-telegraf
 
       - name: Set up Python
-        uses: actions/setup-python@v6.2.0
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
 
