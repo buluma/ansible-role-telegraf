@@ -1,6 +1,6 @@
 ---
-- amazon.aws.ec2_metadata_facts:
-  name: configure_macos | Retrieve ec2 facts
+- name: configure_macos | Retrieve ec2 facts
+  amazon.aws.ec2_metadata_facts:
   when:
     - telegraf_agent_aws_tags
 - name: configure_macos | "Add prefix path"
@@ -8,11 +8,11 @@
     telegraf_agent_config_path: /usr/local/etc
   when:
     - ansible_os_family in ["FreeBSD", "Darwin"]
-- amazon.aws.ec2_tag:
+- name: configure_macos | Retrieve all ec2 tags on the instance
+  amazon.aws.ec2_tag:
     region: "{{ ansible_ec2_placement_region }}"
     resource: "{{ ansible_ec2_instance_id }}"
     state: list
-  name: configure_macos | Retrieve all ec2 tags on the instance
   register: ec2_tags
   when:
     - telegraf_agent_aws_tags
