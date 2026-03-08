@@ -117,7 +117,7 @@ telegraf_agent_package_path: /tmp
 telegraf_agent_package_state: present
 telegraf_agent_quiet: false
 telegraf_agent_round_interval: true
-telegraf_agent_version: 1.29.2
+telegraf_agent_version: "1.29.2"
 telegraf_agent_version_patch: 1
 telegraf_enabled: true
 telegraf_gid_docker: 995
@@ -141,9 +141,9 @@ telegraf_plugins_extra: {}
 telegraf_plugins_extra_exclusive: false
 telegraf_redhat_releasever: $releasever
 telegraf_uid_docker: 998
-telegraf_win_include: C:\Telegraf\telegraf_agent.d
-telegraf_win_install_dir: C:\Telegraf
-telegraf_win_logfile: C:\\Telegraf\\telegraf.log
+telegraf_win_include: "C:\\Telegraf\\telegraf_agent.d"
+telegraf_win_install_dir: "C:\\Telegraf"
+telegraf_win_logfile: "C:\\Telegraf\\telegraf.log"
 telegraf_win_logfile_rotation_max_archives: 3
 telegraf_win_service_args:
   - -service install
@@ -155,7 +155,7 @@ telegraf_yum_baseurl:
   default: https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ telegraf_redhat_releasever }}/$basearch/stable
   redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
   rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-telegraf_yum_gpgkey: https://repos.influxdata.com/influxdata-archive_compat.key
+telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive_compat.key"
 telegraf_zypper_repos:
   default: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
   opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_distribution_version }}/
@@ -209,3 +209,4 @@ If you find issues, please register them on [GitHub](https://github.com/buluma/a
 ## [Author Information](#author-information)
 
 [buluma](https://buluma.github.io/)
+
