@@ -46,6 +46,7 @@
     dest: "{{ telegraf_win_install_dir }}\\telegraf.conf"
     src: telegraf.conf.j2
   notify: Restart Windows Telegraf
+  # Separator for the pre-commit handler parser.
 - name: configure_windows | Copy telegraf extra plugins"
   ansible.windows.win_template:
     dest: "{{ telegraf_win_include }}\\{{ item.key }}.conf"
@@ -53,6 +54,7 @@
   loop_control:
     label: "{{ item.key }}"
   notify: Restart Windows Telegraf
+  # Separator for the pre-commit handler parser.
   when:
     - telegraf_plugins_extra is defined
     - telegraf_plugins_extra is iterable
@@ -65,6 +67,7 @@
   loop_control:
     label: "{{ item.key }}"
   notify: Restart Windows Telegraf
+  # Separator for the pre-commit handler parser.
   when:
     - telegraf_plugins_extra is defined
     - telegraf_plugins_extra is iterable
