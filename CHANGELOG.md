@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v26.6.0...HEAD)
+
+**Closed issues:**
+
+- Revisit online build [\#17](https://github.com/buluma/ansible-role-telegraf/issues/17)
+
 ## [v26.6.0](https://github.com/buluma/ansible-role-telegraf/tree/v26.6.0) (2026-06-14)
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v24.3.31...v26.6.0)
