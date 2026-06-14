@@ -35,10 +35,10 @@
     - telegraf_agent_package_method == "repo"
   block:
     - name: Debian | Download Telegraf apt key
-      ansible.builtin.apt_key:
-        id: 7df8b07e
-        state: present
+      ansible.builtin.get_url:
         url: https://repos.influxdata.com/influxdata-archive.key
+        dest: /etc/apt/trusted.gpg.d/telegraf.asc
+        mode: "0644"
       become: true
       register: are_telegraf_dependencies_keys_installed
       until: are_telegraf_dependencies_keys_installed is succeeded
