@@ -1,6 +1,6 @@
 ---
 name: MasterRun
-true:
+"on":
   push:
     branches:
       - master

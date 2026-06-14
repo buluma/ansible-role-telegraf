@@ -1,5 +1,5 @@
 name: ansible-telegraf
-true:
+"on":
   pull_request:
     paths:
       - defaults/**
