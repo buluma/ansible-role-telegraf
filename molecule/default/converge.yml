@@ -26,23 +26,23 @@
       ansible.builtin.apt:
         name:
           - wget
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
+          - "{{ 'gnupg-agent' if ansible_facts['distribution_major_version'] in ['8', '18', '16'] else 'gpg-agent' }}"
         state: present
         update_cache: true
       when:
         - ansible_facts['os_family'] == 'Debian'
-        - ansible_distribution_major_version not in [9, 10]
+        - ansible_facts['distribution_major_version'] not in [9, 10]
     - name: Installing packages on Debian
       ansible.builtin.apt:
         name:
           - wget
           - python-apt
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
+          - "{{ 'gnupg-agent' if ansible_facts['distribution_major_version'] in ['8', '18', '16'] else 'gpg-agent' }}"
         state: present
         update_cache: true
       when:
         - ansible_facts['os_family'] == 'Debian'
-        - ansible_distribution_major_version in [9, 10]
+        - ansible_facts['distribution_major_version'] in [9, 10]
     - name: Installing packages on Suse
       community.general.zypper:
         name:

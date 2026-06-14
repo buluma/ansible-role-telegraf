@@ -8,10 +8,10 @@
   ansible.builtin.set_fact:
     telegraf_redhat_releasever: 7
   when:
-    - ansible_distribution == "Fedora"
+    - ansible_facts['distribution'] == "Fedora"
 - name: RedHat | Add yum repository
   ansible.builtin.yum_repository:
-    baseurl: "{{ telegraf_yum_baseurl[ansible_distribution | lower] | default(telegraf_yum_baseurl['default']) }}"
+    baseurl: "{{ telegraf_yum_baseurl[ansible_facts['distribution'] | lower] | default(telegraf_yum_baseurl['default']) }}"
     description: InfluxDB Repository - RHEL $releasever
     gpgcheck: "{{ telegraf_yum_gpgcheck | default('true') }}"
     gpgkey: "{{ telegraf_yum_gpgkey }}"
