@@ -35,7 +35,7 @@
   community.general.zypper_repository:
     auto_import_keys: true
     name: telegraf
-    repo: "{{ telegraf_zypper_repos[ansible_distribution | lower] | default(telegraf_zypper_repos['default']) }}"
+    repo: "{{ telegraf_zypper_repos[ansible_facts.distribution | lower] | default(telegraf_zypper_repos['default']) }}"
     runrefresh: true
     state: present
   when: telegraf_zypper_baseurl is not defined
