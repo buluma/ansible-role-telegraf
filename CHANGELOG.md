@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
+## [v26.6.0](https://github.com/buluma/ansible-role-telegraf/tree/v26.6.0) (2026-06-14)
 
-[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v24.3.31...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v24.3.31...v26.6.0)
 
 **Closed issues:**
 
@@ -11,6 +11,10 @@
 
 **Merged pull requests:**
 
+- Bump release-drafter/release-drafter from 6 to 7 [\#61](https://github.com/buluma/ansible-role-telegraf/pull/61) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/checkout from 1 to 6 [\#58](https://github.com/buluma/ansible-role-telegraf/pull/58) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ansible/ansible-lint from 26.1.1 to 26.2.0 [\#57](https://github.com/buluma/ansible-role-telegraf/pull/57) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actions/setup-python from 5.3.0 to 6.2.0 [\#56](https://github.com/buluma/ansible-role-telegraf/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 5.2.0 to 5.3.0 [\#54](https://github.com/buluma/ansible-role-telegraf/pull/54) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ansible/ansible-lint from 24.9.0 to 24.9.2 [\#53](https://github.com/buluma/ansible-role-telegraf/pull/53) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ansible/ansible-lint from 24.7.0 to 24.9.0 [\#52](https://github.com/buluma/ansible-role-telegraf/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
