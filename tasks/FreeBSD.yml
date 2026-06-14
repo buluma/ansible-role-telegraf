@@ -9,11 +9,11 @@
   notify: Restart Telegraf
   register: is_telegraf_package_installed
   until: is_telegraf_package_installed is succeeded
-- command: sysrc telegraf_flags="-quiet -config-directory=/usr/local/etc/telegraf.d"
-  name: FreeBSD | Add telegraf_flags for extra plugins
-  tags:
-    - skip_ansible_lint
-- command: sysrc telegraf_enable="YES"
-  name: FreeBSD | Add telegraf to init
-  tags:
-    - skip_ansible_lint
+- name: FreeBSD | Add telegraf_flags for extra plugins
+  ansible.builtin.command:
+    cmd: sysrc telegraf_flags="-quiet -config-directory=/usr/local/etc/telegraf.d"
+  changed_when: true
+- name: FreeBSD | Add telegraf to init
+  ansible.builtin.command:
+    cmd: sysrc telegraf_enable="YES"
+  changed_when: true
