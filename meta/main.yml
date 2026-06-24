@@ -18,4 +18,13 @@ galaxy_info:
     - name: Debian
       versions:
         - all
+    - name: Fedora
+      versions:
+        - all
+    - name: FreeBSD
+      versions:
+        - all
+    - name: Suse
+      versions:
+        - all
   role_name: telegraf
