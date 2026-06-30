@@ -1,12 +1,20 @@
-**Description of PR**
-<!--- Describe what the PR holds -->
+---
+# Pull Request Template
 
-**Type of change**
-<!--- Pick one below and delete the rest: -->
+## Description
+<!-- Describe your changes in detail -->
 
-Feature Pull Request
-Bugfix Pull Request
-Docs Pull Request
+## Related Issue
+<!-- If this PR addresses an issue, link it -->
 
-**Fixes an issue**
-<!--- If this PR fixes an issue, please mention it. -->
+## Checklist
+- [ ] I have updated the README.md
+- [ ] I have added appropriate tests
+- [ ] I have run tests and they pass
+- [ ] I have updated any relevant documentation
+
+<!-- Checklist for reviewers -->
+- [ ] Code follows Ansible best practices
+- [ ] Tests are comprehensive
+- [ ] Documentation is clear
+
