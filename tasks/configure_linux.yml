@@ -132,7 +132,7 @@
       become: true
       notify:
         - Restart Telegraf
-      # Separator for the pre-commit handler parser.
+# Separator for the pre-commit handler parser.
 - name: configure_linux | Configure system for for smart plugin
   when: "'smart' in telegraf_plugins_extra and not telegraf_agent_docker"
   block:
@@ -156,7 +156,7 @@
       become: true
       notify:
         - Restart Telegraf
-      # Separator for the pre-commit handler parser.
+# Separator for the pre-commit handler parser.
 - name: configure_linux | Configure system for for sensors plugin
   when: "'sensors' in telegraf_plugins_extra and not telegraf_agent_docker"
   block:
