@@ -12,14 +12,15 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 
 ```yaml
 ---
-- become: false
-  gather_facts: true
+- name: Converge
   hosts: all
+  become: false
+  gather_facts: true
   pre_tasks:
     - ansible.builtin.apt: update_cache=yes cache_valid_time=600
       name: Update apt cache.
       changed_when: false
-      when: ansible_os_family == 'Debian'
+      when: ansible_facts['os_family'] == 'Debian'
   roles:
     - role: buluma.telegraf
   tasks:
@@ -28,50 +29,59 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
         state: present
       name: Installing packages on CentOS
       when:
-        - ansible_os_family == 'RedHat'
+        - ansible_facts['os_family'] == 'RedHat'
     - name: Apt get update
       ansible.builtin.command: apt-get update
       tags:
         - molecule-idempotence-notest
       when:
-        - ansible_os_family == 'Debian'
+        - ansible_facts['os_family'] == 'Debian'
     - name: Installing packages on Debian
       ansible.builtin.apt:
         name:
           - wget
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
+          - "{{ 'gnupg-agent' if ansible_facts['distribution_major_version'] in ['8', '18', '16'] else 'gpg-agent' }}"
         state: present
         update_cache: true
       when:
-        - ansible_os_family == 'Debian'
-        - ansible_distribution_major_version not in [9, 10]
+        - ansible_facts['os_family'] == 'Debian'
+        - ansible_facts['distribution_major_version'] not in [9, 10]
     - name: Installing packages on Debian
       ansible.builtin.apt:
         name:
           - wget
           - python-apt
-          - "{{ 'gnupg-agent' if ansible_distribution_major_version in ['8', '18', '16'] else 'gpg-agent' }}"
+          - "{{ 'gnupg-agent' if ansible_facts['distribution_major_version'] in ['8', '18', '16'] else 'gpg-agent' }}"
         state: present
         update_cache: true
       when:
-        - ansible_os_family == 'Debian'
-        - ansible_distribution_major_version in [9, 10]
+        - ansible_facts['os_family'] == 'Debian'
+        - ansible_facts['distribution_major_version'] in [9, 10]
     - name: Installing packages on Suse
       community.general.zypper:
         name:
           - aaa_base
         state: present
       when:
-        - ansible_os_family == 'Suse'
+        - ansible_facts['os_family'] == 'Suse'
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-telegraf/blob/master/molecule/default/prepare.yml):
 
 ```yaml
 ---
-- become: false
-  gather_facts: false
+- name: Prepare
   hosts: all
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Install sudo if missing
+      ansible.builtin.raw: "{{ ansible_pkg_mgr | default('dnf') }} install -y sudo}"
+      become: false
+      changed_when: false
+      failed_when: false
+
   roles:
     - role: buluma.bootstrap
     - role: buluma.ca_certificates
@@ -97,7 +107,7 @@ telegraf_agent_docker_network_mode: bridge
 telegraf_agent_docker_restart_policy: unless-stopped
 telegraf_agent_flush_interval: 10
 telegraf_agent_flush_jitter: 0
-telegraf_agent_hostname: "{{ ansible_fqdn }}"
+telegraf_agent_hostname: "{{ ansible_facts['fqdn'] }}"
 telegraf_agent_interval: 10
 telegraf_agent_logfile: ""
 telegraf_agent_metric_batch_size: 1000
@@ -111,7 +121,7 @@ telegraf_agent_output:
     type: influxdb
 telegraf_agent_package: telegraf
 telegraf_agent_package_file_deb: telegraf_{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}_{{ telegraf_agent_package_arch }}.deb
-telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}.{{ ansible_architecture }}.rpm
+telegraf_agent_package_file_rpm: telegraf-{{ telegraf_agent_version }}-{{ telegraf_agent_version_patch }}.{{ ansible_facts['architecture'] }}.rpm
 telegraf_agent_package_method: repo
 telegraf_agent_package_path: /tmp
 telegraf_agent_package_state: present
@@ -152,15 +162,15 @@ telegraf_win_service_args:
 telegraf_yum_baseurl:
   amazon: https://repos.influxdata.com/centos/6/$basearch/stable
   centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  default: https://repos.influxdata.com/{{ ansible_distribution|lower }}/{{ telegraf_redhat_releasever }}/$basearch/stable
+  default: https://repos.influxdata.com/{{ ansible_facts['distribution']|lower }}/{{ telegraf_redhat_releasever }}/$basearch/stable
   redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
   rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
 telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive_compat.key"
 telegraf_zypper_repos:
   default: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_distribution_version }}/
+  opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_facts['distribution_version'] }}/
   opensuse tumbleweed: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_distribution_major_version }}_SP{{ ansible_distribution_release }}/
+  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_facts['distribution_major_version'] }}_SP{{ ansible_facts['distribution_release'] }}/
 ```
 
 ## [Requirements](#requirements)
@@ -186,13 +196,14 @@ Here is an overview of related roles:
 
 ## [Compatibility](#compatibility)
 
-This role has been tested on these [container images](https://hub.docker.com/u/robertdebock):
+This role has been tested on these [container images](https://hub.docker.com/u/buluma):
 
 |container|tags|
 |---------|----|
-|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|all|
-|[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|all|
-|[Debian](https://hub.docker.com/r/robertdebock/debian)|all|
+|[EL](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Debian](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Fedora](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Ubuntu](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
 
 The minimum version of Ansible required is 2.12, tests have been done on:
 
@@ -210,6 +221,3 @@ If you find issues, please register them on [GitHub](https://github.com/buluma/a
 
 [buluma](https://buluma.github.io/)
 
-### Get Help
-- Report issues: https://github.com/buluma/ansible-role-telegraf/issues/new
-- See docs: https://docs.ansible.com/collection/gallery/ansible-role-telegraf
