@@ -170,7 +170,8 @@ telegraf_zypper_repos:
   default: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
   opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_facts['distribution_version'] }}/
   opensuse tumbleweed: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_facts['distribution_major_version'] }}_SP{{ ansible_facts['distribution_release'] }}/
+  sles: http://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_facts['distribution_major_version'] }}_SP{{
+    ansible_facts['distribution_release'] }}/
 ```
 
 ## [Requirements](#requirements)
