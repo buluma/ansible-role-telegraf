@@ -67,16 +67,18 @@ telegraf_win_service_args:
   - --config-directory "{{ telegraf_win_include }}"
 telegraf_yum_baseurl:
   amazon: https://repos.influxdata.com/centos/6/$basearch/stable
-  centos: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  # InfluxData only publishes a generic "rhel" path - there's no
-  # almalinux/fedora path, so the "default" fallback (distro name in the
-  # URL) 404s for anything not explicitly listed here.
-  almalinux: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  default: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  fedora: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  redhat: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-  rocky: https://repos.influxdata.com/rhel/{{ telegraf_redhat_releasever }}/$basearch/stable
-telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive_compat.key"
+  centos: https://repos.influxdata.com/stable/$basearch/main
+  # InfluxData now publishes one universal repo for every RPM distro
+  # (their own docs use this same path regardless of distro/release).
+  almalinux: https://repos.influxdata.com/stable/$basearch/main
+  default: https://repos.influxdata.com/stable/$basearch/main
+  fedora: https://repos.influxdata.com/stable/$basearch/main
+  redhat: https://repos.influxdata.com/stable/$basearch/main
+  rocky: https://repos.influxdata.com/stable/$basearch/main
+# influxdata-archive_compat.key only carries their old signing key;
+# newer packages (e.g. influxdata-archive-keyring) are signed with a
+# key that's only in the non-compat archive key.
+telegraf_yum_gpgkey: "https://repos.influxdata.com/influxdata-archive.key"
 telegraf_zypper_repos:
   default: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
   opensuse leap: http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_facts['distribution_version'] }}/
