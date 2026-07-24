@@ -5,23 +5,8 @@
     name: telegraf
     state: restarted
   become: true
-  ignore_errors: true
-  register: telegraf_restart_result
+  ignore_errors: "{{ ansible_check_mode }}"
   when: not telegraf_agent_docker
-- name: Debug | Capture telegraf.service journal after restart.
-  ansible.builtin.command: journalctl -xeu telegraf --no-pager -n 200
-  become: true
-  changed_when: false
-  register: telegraf_journal
-  when:
-    - not telegraf_agent_docker
-    - telegraf_restart_result is failed
-- name: Debug | Fail with telegraf.service journal.
-  ansible.builtin.fail:
-    msg: "{{ telegraf_journal.stdout_lines }}"
-  when:
-    - not telegraf_agent_docker
-    - telegraf_restart_result is failed
 - name: Restart Telegraf container
   community.docker.docker_container:
     name: "{{ telegraf_agent_docker_name }}"
