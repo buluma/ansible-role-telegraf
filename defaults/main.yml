@@ -43,7 +43,9 @@ telegraf_plugins_default:
       - percpu = true
     plugin: cpu
   - plugin: disk
-  - plugin: io
+  # inputs.io was renamed/replaced by inputs.diskio; io was removed
+  # entirely (hard error, not just a warning, as of 1.38+).
+  - plugin: diskio
   - plugin: mem
   - plugin: net
   - plugin: system

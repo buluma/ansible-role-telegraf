@@ -112,19 +112,7 @@
     - item.value.state|default('present') == 'absent'
   with_dict: "{{ telegraf_plugins_extra }}"
 - name: configure_linux | "Force restart service after reread config"
-  when: true
-  block:
-    - name: configure_linux | "Force restart service after reread config"
-      ansible.builtin.meta: flush_handlers
-  rescue:
-    - name: configure_linux | Debug | Capture telegraf.service journal on restart failure.
-      ansible.builtin.command: journalctl -xeu telegraf --no-pager -n 200
-      become: true
-      changed_when: false
-      register: telegraf_journal_debug
-    - name: configure_linux | Debug | Fail with telegraf.service journal.
-      ansible.builtin.fail:
-        msg: "{{ telegraf_journal_debug.stdout_lines }}"
+  ansible.builtin.meta: flush_handlers
 - name: configure_linux | "Start Telegraf (If it wasn't running)"
   ansible.builtin.service:
     enabled: "{{ telegraf_enabled }}"
