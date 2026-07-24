@@ -73,24 +73,15 @@
         - name: Debian | Set Telegraf apt repository parameters
           ansible.builtin.set_fact:
             telegraf_repository_params: "[signed-by=/usr/share/keyrings/influxdata-archive.asc]"
-    - name: Debian | Add Telegraf repository (using LSB)
-      ansible.builtin.copy:
-        content: deb {{ telegraf_repository_params | default('') }} https://repos.influxdata.com/{{ ansible_facts['distribution'] | lower }} {{
-          ansible_facts['lsb'].codename }} stable
-        dest: /etc/apt/sources.list.d/telegraf.list
-        mode: "0644"
-      when:
-        - ansible_facts['lsb'] is defined
-        - ansible_facts['lsb'].codename is defined
+    # InfluxData doesn't build per-codename repos for every Debian/Ubuntu
+    # release (e.g. no noble/resolute) - their own docs use a single
+    # universal "stable" suite under the debian path for both distros.
     - name: Debian | Add Telegraf repository
       ansible.builtin.copy:
-        content: deb {{ telegraf_repository_params | default('') }} https://repos.influxdata.com/{{ ansible_facts['distribution'] | lower }} {{
-          ansible_facts['distribution_release'] }} stable
+        content: deb {{ telegraf_repository_params | default('') }} https://repos.influxdata.com/debian stable main
         dest: /etc/apt/sources.list.d/telegraf.list
         mode: "0644"
       become: true
-      when:
-        - ansible_facts['lsb'] is not defined or ansible_facts['lsb'].codename is not defined
     - name: Debian | Install Telegraf package (repo)
       ansible.builtin.apt:
         name: "{{ telegraf_agent_package }}"
