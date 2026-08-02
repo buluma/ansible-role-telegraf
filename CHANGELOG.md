@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/buluma/ansible-role-telegraf/tree/HEAD)
+
+[Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v26.6.2...HEAD)
+
+**Merged pull requests:**
+
+- chore\(deps\): bump release-drafter/release-drafter from 7 to 7.6.0 [\#66](https://github.com/buluma/ansible-role-telegraf/pull/66) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v26.6.2](https://github.com/buluma/ansible-role-telegraf/tree/v26.6.2) (2026-07-24)
 
 [Full Changelog](https://github.com/buluma/ansible-role-telegraf/compare/v26.6.1...v26.6.2)
@@ -41,7 +49,6 @@
 
 - Bump actions/setup-python from 5.0.0 to 5.1.0 [\#48](https://github.com/buluma/ansible-role-telegraf/pull/48) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump dependabot/fetch-metadata from 1 to 2 [\#47](https://github.com/buluma/ansible-role-telegraf/pull/47) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump release-drafter/release-drafter from 5 to 6 [\#46](https://github.com/buluma/ansible-role-telegraf/pull/46) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/dependabot-auto-merge-action from 2.1.1 to 2.1.2 [\#45](https://github.com/buluma/ansible-role-telegraf/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump buluma/dependabot-auto-merge-action from 2.1.1 to 2.1.2 [\#44](https://github.com/buluma/ansible-role-telegraf/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 5 to 6 [\#43](https://github.com/buluma/ansible-role-telegraf/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -61,6 +68,7 @@
 
 **Merged pull requests:**
 
+- Bump release-drafter/release-drafter from 5 to 6 [\#46](https://github.com/buluma/ansible-role-telegraf/pull/46) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump actions/setup-python from 3.1.2 to 4.4.0 [\#29](https://github.com/buluma/ansible-role-telegraf/pull/29) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v0.1.4](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.4) (2022-05-02)
