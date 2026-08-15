@@ -7,6 +7,7 @@
 **Merged pull requests:**
 
 - chore\(deps\): bump release-drafter/release-drafter from 7 to 7.6.0 [\#66](https://github.com/buluma/ansible-role-telegraf/pull/66) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump ansible/ansible-lint from 26.6.0 to 26.8.0 [\#64](https://github.com/buluma/ansible-role-telegraf/pull/64) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v26.6.2](https://github.com/buluma/ansible-role-telegraf/tree/v26.6.2) (2026-07-24)
 
@@ -107,6 +108,7 @@
 **Merged pull requests:**
 
 - Move to collections [\#10](https://github.com/buluma/ansible-role-telegraf/pull/10) ([buluma](https://github.com/buluma))
+- Move to collections [\#9](https://github.com/buluma/ansible-role-telegraf/pull/9) ([buluma](https://github.com/buluma))
 
 ## [v0.1.1](https://github.com/buluma/ansible-role-telegraf/tree/v0.1.1) (2022-04-02)
 
@@ -114,7 +116,6 @@
 
 **Merged pull requests:**
 
-- Move to collections [\#9](https://github.com/buluma/ansible-role-telegraf/pull/9) ([buluma](https://github.com/buluma))
 - Testing [\#7](https://github.com/buluma/ansible-role-telegraf/pull/7) ([buluma](https://github.com/buluma))
 - Testing [\#5](https://github.com/buluma/ansible-role-telegraf/pull/5) ([buluma](https://github.com/buluma))
 - Update main.yml [\#4](https://github.com/buluma/ansible-role-telegraf/pull/4) ([buluma](https://github.com/buluma))
