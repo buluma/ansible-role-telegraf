@@ -43,9 +43,11 @@
       register: are_telegraf_gnupg_installed
       until: are_telegraf_gnupg_installed is succeeded
     - name: Debian | Install Telegraf apt key
-      ansible.builtin.include_tasks: apt-key.yml
+      ansible.builtin.include_tasks: install-key.yml
       vars:
-        _telegraf_apt_key_dest: /etc/apt/trusted.gpg.d/telegraf.asc
+        _telegraf_key_url: "{{ telegraf_apt_gpgkey }}"
+        _telegraf_key_fingerprint: "{{ telegraf_gpgkey_fingerprint }}"
+        _telegraf_key_dest: /etc/apt/trusted.gpg.d/telegraf.asc
       when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version']|int < 9) or (ansible_facts['distribution'] == "Ubuntu"
         and ansible_facts['distribution_major_version']|int < 18)
     - name: Debian | Configure keyring-based repository signing
@@ -67,9 +69,11 @@
           when:
             - not usr_share_keyrings.stat.exists
         - name: Debian | Install Telegraf apt key
-          ansible.builtin.include_tasks: apt-key.yml
+          ansible.builtin.include_tasks: install-key.yml
           vars:
-            _telegraf_apt_key_dest: /usr/share/keyrings/influxdata-archive.asc
+            _telegraf_key_url: "{{ telegraf_apt_gpgkey }}"
+            _telegraf_key_fingerprint: "{{ telegraf_gpgkey_fingerprint }}"
+            _telegraf_key_dest: /usr/share/keyrings/influxdata-archive.asc
         - name: Debian | Set Telegraf apt repository parameters
           ansible.builtin.set_fact:
             telegraf_repository_params: "[signed-by=/usr/share/keyrings/influxdata-archive.asc]"
