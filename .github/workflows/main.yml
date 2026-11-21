@@ -5,30 +5,39 @@ name: MasterRun
     branches:
       - master
       - main
+    paths-ignore:
+      - "**/CHANGELOG.md"
   workflow_dispatch:
 jobs:
   runme:
+    if: github.ref_name == github.event.repository.default_branch
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout dj-wasabi-release repo
         uses: actions/checkout@v7
         with:
-          path: dj-wasabi-release
           repository: dj-wasabi/dj-wasabi-release
+          path: dj-wasabi-release
       - name: Checkout current repo
         uses: actions/checkout@v7
         with:
-          path: main
-      - env:
+          ref: ${{ github.event.repository.default_branch }}
+          path: current-repo
+      - name: Generate changelog
+        env:
           CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Commit Changelog file
-        run:
-          "# We are cloned in the 'main' directory and the dj-wasabi-release\n# repository
-          is the 'dj-wasabi-release' next to 'main'\ncd main\n\n# Generate CHANGELOG.md
-          file\n../dj-wasabi-release/release.sh -d\n\n# Let commit the changes if there
-          are any? (Well there should be!)\nif [[ $(git status | grep -c 'CHANGELOG.md'
-          || true) -gt 0 ]]\n  then  echo \"Committing file\"\n        git config --global
-          user.name 'Shadow Walker [GH bot]'\n        git config --global user.email
-          'github@buluma.me.ke'\n\n        git add CHANGELOG.md\n        git commit
-          -m \"Updated CHANGELOG.md on \\\"$(date \"+%Y-%m-%d %H:%M:%S\")\\\"\" CHANGELOG.md\n\
-          \        git push\nfi\n"
+        run: |
+          cd current-repo
+          ../dj-wasabi-release/release.sh -d
+      - name: Open changelog update pull request
+        uses: peter-evans/create-pull-request@v8.1.3
+        with:
+          path: current-repo
+          add-paths: CHANGELOG.md
+          branch: automation/changelog-draft
+          commit-message: Update CHANGELOG.md
+          title: Update CHANGELOG.md
+          body: Generated release changelog update.
