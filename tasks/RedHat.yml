@@ -9,6 +9,16 @@
     telegraf_redhat_releasever: 7
   when:
     - ansible_facts['distribution'] == "Fedora"
+- name: RedHat | Import Telegraf rpm key
+  ansible.builtin.rpm_key:
+    key: "{{ telegraf_yum_gpgkey }}"
+    fingerprint: "{{ telegraf_gpgkey_fingerprint }}"
+    state: present
+  become: true
+  register: are_telegraf_rpm_key_imported
+  until: are_telegraf_rpm_key_imported is succeeded
+  when:
+    - telegraf_agent_package_method == "repo"
 - name: RedHat | Add yum repository
   ansible.builtin.yum_repository:
     baseurl: "{{ telegraf_yum_baseurl[ansible_facts['distribution'] | lower] | default(telegraf_yum_baseurl['default']) }}"
