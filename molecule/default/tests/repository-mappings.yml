@@ -1,0 +1,23 @@
+---
+- name: Verify SUSE repository mappings
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../../../defaults/main.yml
+  tasks:
+    - name: Check Leap repository mapping
+      ansible.builtin.assert:
+        that:
+          - telegraf_zypper_repos['opensuse leap'] == 'https://download.opensuse.org/repositories/devel:/languages:/go/16.0/'
+      vars:
+        ansible_facts:
+          distribution_version: '16.0'
+    - name: Check SLES repository mapping
+      ansible.builtin.assert:
+        that:
+          - telegraf_zypper_repos['sles'] == 'https://download.opensuse.org/repositories/devel:/languages:/go/SLE_15_SP6/'
+      vars:
+        ansible_facts:
+          distribution_major_version: '15'
+          distribution_version: '15.6'
+          distribution_release: 'n/a'
