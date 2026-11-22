@@ -90,7 +90,7 @@ telegraf_zypper_gpgkey: "https://download.opensuse.org/repositories/devel:/langu
 telegraf_zypper_gpgkey_fingerprint: "B619E7E24D0ED061FA14343CAF4CFE4D307D7BF9"
 telegraf_zypper_repos:
   default: https://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
-  opensuse leap: https://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Leap_{{ ansible_facts['distribution_version'] }}/
+  opensuse leap: https://download.opensuse.org/repositories/devel:/languages:/go/{{ ansible_facts['distribution_version'] }}/
   opensuse tumbleweed: https://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/
   sles: https://download.opensuse.org/repositories/devel:/languages:/go/SLE_{{ ansible_facts['distribution_major_version'] }}_SP{{
-    ansible_facts['distribution_release'] }}/
+    ansible_facts['distribution_version'].split('.')[1] }}/

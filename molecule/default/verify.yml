@@ -9,3 +9,6 @@
       ansible.builtin.command:
         cmd: telegraf --version
       changed_when: false
+
+- name: Verify repository mappings
+  ansible.builtin.import_playbook: tests/repository-mappings.yml
