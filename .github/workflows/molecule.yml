@@ -45,6 +45,8 @@ jobs:
       matrix:
         distro:
           - image: "docker-molecule-images"
+            tag: "opensuse-tumbleweed"
+          - image: "docker-molecule-images"
             tag: "rockylinux10"
           - image: "docker-molecule-images"
             tag: "almalinux10"
